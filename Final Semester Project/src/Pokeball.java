@@ -1,5 +1,5 @@
 
-public class Pokeball {
+abstract class Pokeball {
 	
 	private String type;
 	private int strength;
