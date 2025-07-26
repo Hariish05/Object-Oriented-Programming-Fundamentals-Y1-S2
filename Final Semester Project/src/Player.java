@@ -1,3 +1,4 @@
+
 public class Player {
 	
 	
@@ -38,6 +39,16 @@ public class Player {
 		this.score = score;
 	}
 
+	
+	public void Choose() {
+		
+	}
+	
+	public void Catch() {
+		
+	}
+	
+	
 	@Override
 	public String toString() {
 		return String.format("Player [name=%s, collection=%s, score=%s]", name, collection, score);
