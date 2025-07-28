@@ -4,19 +4,21 @@ abstract class Pokemon {
 	protected boolean defeat;
 	protected int level;
 	protected int hp;
+	protected int maxHp;
 	protected int atk;
 	protected int def;
 	protected int speed;
     protected String species;
 
-	public Pokemon(String nickname, int hp, int atk, int def, int speed, String species) {
+	public Pokemon(String nickname, int maxHp, int atk, int def, int speed, String species) {
 		this.nickname = nickname;
-		this.level = 1;
-		this.hp = hp;
+		this.maxHp = maxHp;
 		this.atk = atk;
 		this.def = def;
 		this.speed = speed;
 		this.species = species;
+		this.hp = this.maxHp;
+		this.level = 1;
 		this.defeat = false;
 	}
 	public String getNickname() {
@@ -63,6 +65,9 @@ abstract class Pokemon {
 	}
 	public String getSpecies() {
 		return species;
+	}
+	public int getMaxHp() {
+		return maxHp;
 	}
 	public abstract void useTypeMove();
 	}

@@ -1,5 +1,7 @@
 public class driverFile {
     public static void main(String[] args)  {
-        System.out.println("Hello, World!");
+        //TESTS
+        Grass.BULBASAUR.setHp(Grass.BULBASAUR.getMaxHp()-2);
+        System.out.println(Grass.BULBASAUR.toString());
     }
 }
