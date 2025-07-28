@@ -7,19 +7,15 @@ abstract class Pokemon {
 	protected int atk;
 	protected int def;
 	protected int speed;
-    protected int spAtk;
-    protected int spDef;
     protected String species;
 
-	public Pokemon(String nickname, int hp, int atk, int def, int speed, int spAtk, int spDef, String species) {
+	public Pokemon(String nickname, int hp, int atk, int def, int speed, String species) {
 		this.nickname = nickname;
 		this.level = 1;
 		this.hp = hp;
 		this.atk = atk;
 		this.def = def;
 		this.speed = speed;
-		this.spAtk = spAtk;
-		this.spDef = spDef;
 		this.species = species;
 		this.defeat = false;
 	}
@@ -65,23 +61,8 @@ abstract class Pokemon {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	public int getSpAtk() {
-		return spAtk;
-	}
-	public void setSpAtk(int spAtk) {
-		this.spAtk = spAtk;
-	}
-	public int getSpDef() {
-		return spDef;
-	}
-	public void setSpDef(int spDef) {
-		this.spDef = spDef;
-	}
 	public String getSpecies() {
 		return species;
 	}
 	public abstract void useTypeMove();
-	public abstract String getZMoveName();
-	public abstract int getZMovePower();
-	public abstract void useZMove();
 	}
