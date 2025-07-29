@@ -1,19 +1,26 @@
 
+import java.util.*;
+
 public class Player {
 	
 	
 	private String name;
-	private Pokemon collection;
+	private List<Pokemon> collection;
+	private List<Pokemon> pokemonEquipped;
 	private int score;
+
 	
 	public Player() {
 	}
 
-	public Player(String name, Pokemon collection, int score) {
+	public Player(String name, Pokemon collection, int score, Pokemon pokemonEquipped) {
 		this.name = name;
-		this.collection = collection;
+		this.collection = new ArrayList<>();
 		this.score = score;
+		this.pokemonEquipped = new ArrayList<>();
 	}
+
+	
 
 	public String getName() {
 		return name;
@@ -23,13 +30,13 @@ public class Player {
 		this.name = name;
 	}
 
-	public Pokemon getCollection() {
+	public List<Pokemon> getCollection() {
 		return collection;
 	}
 
-	public void setCollection(Pokemon collection) {
+	/*public void setCollection(Pokemon collection) {
 		this.collection = collection;
-	}
+	}*/
 
 	public int getScore() {
 		return score;
@@ -37,6 +44,34 @@ public class Player {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public List<Pokemon> getPokemonEquipped(){
+		return pokemonEquipped;
+	}
+
+	/*public void getPokemonEquipped(){
+		this.pokemonEquipped = pokemonEquipped;
+	}*/
+
+	public void addPokemon(Pokemon pokemon){
+		collection.add(pokemon);
+		if (pokemonEquipped.size() < 2){
+			pokemonEquipped.add(pokemon);
+		}
+
+	}
+
+	public void addCurrentlyPokemon(Pokemon pokemon){
+		if(collection.size() < 2 && collection.contains(pokemon)){
+			if(pokemonEquipped.contains(pokemon)){
+				pokemonEquipped.add(pokemon);
+			}
+		}
+	}
+
+	public void removeCurrentPokemon(Pokemon pokemon){
+		pokemonEquipped.remove(pokemon);
 	}
 
 	
@@ -47,6 +82,7 @@ public class Player {
 	public void Catch() {
 		
 	}
+	
 	
 	
 	@Override
