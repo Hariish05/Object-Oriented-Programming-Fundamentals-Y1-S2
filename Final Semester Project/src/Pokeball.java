@@ -1,44 +1,35 @@
-
-abstract class Pokeball {
+import java.util.Random;
+class Pokeball {
+	public static final Random RANDOM = new Random();
+	private String ballName;
+	private double strength;
 	
-	private String type;
-	private int strength;
-	
-	public Pokeball() {
-	}
-
-	
-	public Pokeball(String type, int strength) {
-		this.type = type;
+	public Pokeball(String ballName, double strength) {
+		this.ballName = ballName;
 		this.strength = strength;
 	}
 
+	// Pokeball object creation
 
-	public String getType() {
-		return type;
+	public static final Pokeball POKEBALL = new Pokeball("Pokeball",0.4);
+	public static final Pokeball GREATBALL = new Pokeball("Great ball",0.6); 
+	public static final Pokeball ULTRABALL = new Pokeball("Ultra Ball",0.8);
+	public static final Pokeball MASTERBALL = new Pokeball("Master ball",1.0); 
+
+	public String getBallName() {
+		return ballName;
 	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getStrength() {
+	public double getStrength() {
 		return strength;
 	}
-
-	public void setStrength(int strength) {
-		this.strength = strength;
-	}
-
-	public void attemptCatch() {
-		
-	}
 	
-	@Override
+	public static boolean attemptCatch(Pokeball pokeball){
+		double catchRoll = RANDOM.nextDouble();
+		boolean caught = catchRoll <= pokeball.getStrength();
+		return  caught;
+	}
+
 	public String toString() {
-		return String.format("Pokeball [type=%s, strength=%s]", type, strength);
+		return String.format("Pokeball:\ntype=%s\nstrength=%f\n]", ballName, strength);
 	}
-	
-	
-
 }
