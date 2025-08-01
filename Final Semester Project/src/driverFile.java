@@ -9,5 +9,8 @@ public class driverFile {
         } else{
             System.out.println("Pokemon has slipped away!");
         }
+        //EFFECTIVENESS TEST (working)
+        double effectiveness = Pokemon.getTypeEffectiveness(Fire.charmander,Electric.pikachu);
+        System.out.println(effectiveness);
     }
 }

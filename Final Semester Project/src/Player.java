@@ -4,19 +4,26 @@ public class Player {
 	public static final Random RANDOM = new Random();
 	private String name;
 	private ArrayList<Pokemon> collection;
-	private ArrayList<Pokemon> pokemonEquipped;
+	private Pokemon pokemonEquipped;
 	private int score;
+	private boolean turn;
 
 	
-	public Player(String name, int score, Pokemon pokemonEquipped) {
+	public Player(String name, int score, ArrayList<Pokemon> collection) {
 		this.name = name;
-		this.collection = new ArrayList<>();
+		this.collection = collection;
 		this.score = score;
-		this.pokemonEquipped = new ArrayList<>();
+		this.pokemonEquipped= null;
+		this.turn = false;
 	}
 
 	
-	
+	public boolean isTurn() {
+		return turn;
+	}
+	public void setTurn(boolean turn) {
+		this.turn = turn;
+	}
 	public String getName() {
 		return name;
 	}
@@ -38,14 +45,14 @@ public class Player {
 		this.score = score;
 	}
 
-	public List<Pokemon> getPokemonEquipped(){
+	public Pokemon getPokemonEquipped(){
 		return pokemonEquipped;
 	}
 
 	/*public void getPokemonEquipped(){
 		this.pokemonEquipped = pokemonEquipped;
 	}*/
-
+/* 
 	public void addPokemon(Pokemon pokemon){
 		collection.add(pokemon);
 		if (pokemonEquipped.size() < 2){
@@ -64,7 +71,7 @@ public class Player {
 
 	public void removeCurrentPokemon(Pokemon pokemon){
 		pokemonEquipped.remove(pokemon);
-	}
+	}*/
 
 	
 	public void Choose() {
@@ -78,4 +85,23 @@ public class Player {
 	public String toString() {
 		return String.format("Player [name=%s, collection=%s, score=%s]", name, collection, score);
 	}
+
+
+
+	public static Random getRandom() {
+		return RANDOM;
+	}
+
+
+
+	public void setCollection(ArrayList<Pokemon> collection) {
+		this.collection = collection;
+	}
+
+
+// This has to change to pull from collection
+	public void setPokemonEquipped(Pokemon pokemonEquipped) {
+		this.pokemonEquipped = pokemonEquipped;
+	}
+
 }

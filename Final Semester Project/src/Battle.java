@@ -40,7 +40,4 @@ public class Battle {
 	public String toString() {
 		return String.format("Battle [opponent_pokemon=%s, player_pokemon=%s]", opponent_pokemon, player_pokemon);
 	}
-	
-	
-	
 }

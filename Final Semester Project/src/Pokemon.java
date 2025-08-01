@@ -67,4 +67,45 @@ abstract class Pokemon {
 	}
 	public abstract void useTypeMove();
 	public abstract String toString();
+
+	public static double getTypeEffectiveness(Pokemon attacker, Pokemon defender){
+		Class<?> attackerType = attacker.getClass();
+		Class<?> defenderType = defender.getClass(); 
+
+		if		  (attackerType ==Water.class && defenderType == Grass.class ){
+			return 0.5;
+		} else if (attackerType == Water.class && defenderType == Fire.class){
+			return 2.0;
+		} else if(attackerType == Water.class && defenderType == Water.class){
+			return 0.5;
+		} else if(attackerType == Water.class && defenderType == Electric.class){
+			return 1.0;
+		} else if (attackerType == Fire.class && defenderType == Fire.class){
+        	return 0.5;
+    	} else if (attackerType == Fire.class && defenderType == Water.class){
+        	return 0.5;
+    	} else if (attackerType == Fire.class && defenderType == Grass.class){
+        	return 2.0;
+    	} else if (attackerType == Fire.class && defenderType == Electric.class){
+        	return 1.0;
+    	} else if (attackerType == Grass.class && defenderType == Fire.class){
+        	return 0.5;
+		} else if (attackerType == Grass.class && defenderType == Water.class){
+			return 2.0;
+		} else if (attackerType == Grass.class && defenderType == Grass.class){
+			return 0.5;
+		} else if (attackerType == Grass.class && defenderType == Electric.class){
+			return 1.0;
+		}else if (attackerType == Electric.class && defenderType == Fire.class){
+			return 1.0;
+		} else if (attackerType == Electric.class && defenderType == Water.class){
+			return 2.0;
+		} else if (attackerType == Electric.class && defenderType == Grass.class){
+			return 1.0;
+		} else if (attackerType == Electric.class && defenderType == Electric.class){
+			return 0.5;
+		} else {
+			return 1.0;
+		}
+	}
 	}
