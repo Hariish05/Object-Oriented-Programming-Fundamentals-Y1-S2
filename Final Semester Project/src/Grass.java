@@ -6,10 +6,10 @@ class Grass extends Pokemon{
         this.ZMove = ZMove;
     }
 
-    //Grass pokemon object creation
-    public static final Grass BULBASAUR = new Grass("yur", 0, 0, 0, "Bulbasaur", 100, ZMoves.BLOOM_DOOM); //placeholder
-    public static final Grass SNIVY = new Grass("yurr", 0, 0, 0, "Snivy", 200, ZMoves.BREAKNECK_BLITZ); //placeholder
-    public static final Grass TURTWIG = new Grass("yurrr", 0, 0, 0, "Turtwig", 140, ZMoves.RAZOR_LEAF); //placeholder
+    //Grass pokemon object creation (PLACEHOLDER VALUES)
+    public static Grass BULBASAUR = new Grass("yur", 0, 0, 0, "Bulbasaur", 100, ZMoves.BLOOM_DOOM); 
+    public static Grass SNIVY = new Grass("yurr", 0, 0, 0, "Snivy", 200, ZMoves.BREAKNECK_BLITZ); 
+    public static Grass TURTWIG = new Grass("yurrr", 0, 0, 0, "Turtwig", 140, ZMoves.RAZOR_LEAF); 
 
     @Override
     public void useTypeMove(){
