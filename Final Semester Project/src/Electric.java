@@ -1,0 +1,23 @@
+public class Electric extends Pokemon{
+    // Electric pokemon constructor
+    public Electric(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
+        super(nickname, maxHp, atk, def, speed, species,ZMove);
+    }
+
+    // Electric pokemon object creation (VALUES NOT FINAL)
+    public static Electric elekid = new Electric("yur",0,0,0,"Elekid",100,ZMoves.GIGAVOLT_HAVOC_ELEKID);
+    public static Electric pikachu = new Electric("yurr",0,0,0,"Pikachu",100,ZMoves.CATASTROPIKA);
+    public static Electric shinx = new Electric("yurrr",0,0,0,"Shinx",100,ZMoves.GIGAVOLT_HAVOC_SHINX);
+    @Override
+
+    public void useTypeMove(){
+        System.out.printf("%s uses an Electricity type move!\n", getNickname());
+    }
+    public void electricBonus(){
+        System.out.printf("%s calls upon the power of Electricity!\n",getNickname());
+    }
+    @Override
+    public String toString(){
+        return String.format("Electric Type Pokemon\nNickname: %s\nSpecies: %s\nHealth points: %d/%d\nAttack: %d\nDefense: %d\nSpeed: %d\n%s",getNickname(),getSpecies(),getHp(),getMaxHp(),getAtk(),getDef(),getSpeed(),ZMove.toString());
+    }
+}

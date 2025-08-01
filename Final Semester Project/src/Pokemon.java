@@ -9,8 +9,9 @@ abstract class Pokemon {
 	protected int def;
 	protected int speed;
     protected String species;
+	protected ZMoves ZMove;
 
-	public Pokemon(String nickname, int maxHp, int atk, int def, int speed, String species) {
+	public Pokemon(String nickname, int maxHp, int atk, int def, int speed, String species,ZMoves ZMove) {
 		this.nickname = nickname;
 		this.maxHp = maxHp;
 		this.atk = atk;
@@ -20,6 +21,7 @@ abstract class Pokemon {
 		this.hp = this.maxHp;
 		this.level = 1;
 		this.defeat = false;
+		this.ZMove = ZMove;
 	}
 	public String getNickname() {
 		return nickname;
@@ -64,4 +66,5 @@ abstract class Pokemon {
 		return maxHp;
 	}
 	public abstract void useTypeMove();
+	public abstract String toString();
 	}

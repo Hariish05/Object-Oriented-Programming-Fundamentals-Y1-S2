@@ -1,8 +1,8 @@
 public class driverFile {
     public static void main(String[] args)  {
         //TESTS
-        Grass.BULBASAUR.setHp(Grass.BULBASAUR.getMaxHp()-2);
-        System.out.println(Grass.BULBASAUR.toString());
+        Grass.bulbasuar.setHp(Grass.bulbasuar.getMaxHp()-2);
+        System.out.println(Grass.bulbasuar.toString());
         boolean catchStatus = Pokeball.attemptCatch(Pokeball.POKEBALL);
         if (catchStatus) {
             System.out.println("Pokemon has been caught!");
