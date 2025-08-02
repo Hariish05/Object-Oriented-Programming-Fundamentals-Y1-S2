@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 abstract class Pokemon {
 	protected String nickname;
@@ -71,8 +74,7 @@ abstract class Pokemon {
 	public static double getTypeEffectiveness(Pokemon attacker, Pokemon defender){
 		Class<?> attackerType = attacker.getClass();
 		Class<?> defenderType = defender.getClass(); 
-
-		if		  (attackerType ==Water.class && defenderType == Grass.class ){
+		if (attackerType ==Water.class && defenderType == Grass.class ){
 			return 0.5;
 		} else if (attackerType == Water.class && defenderType == Fire.class){
 			return 2.0;
@@ -107,5 +109,41 @@ abstract class Pokemon {
 		} else {
 			return 1.0;
 		}
+	}
+	public static List<Pokemon> getAllPokemon() {
+        List<Pokemon> allPokemonList = new ArrayList<>();
+        allPokemonList.addAll(Fire.getAllFirePokemon());
+        allPokemonList.addAll(Water.getAllWaterPokemon());
+        allPokemonList.addAll(Grass.getAllGrassPokemon());
+        allPokemonList.addAll(Electric.getAllElectricPokemon());
+        return allPokemonList;
+    }
+	public static Pokemon getPokemonByName(String name) {
+        List<Pokemon> allPokemon = getAllPokemon();
+        for (Pokemon pokemon : allPokemon) {
+            if (pokemon.getSpecies().equalsIgnoreCase(name)) {
+                return pokemon;
+            }
+        }
+        return null; // Pokemon not found
+    }
+	public static Pokemon getRandomPokemon() {
+        List<Pokemon> allPokemon = getAllPokemon();
+        Random random = new Random();
+        int randomIndex = random.nextInt(allPokemon.size());
+        return allPokemon.get(randomIndex);
+    }
+	public static ArrayList<Pokemon> getThreeRandomPokemon(){
+		List<Pokemon> allPokemon = getAllPokemon();
+		ArrayList<Pokemon> selectedPokemon = new ArrayList<>();
+		Random random = new Random();
+		while (selectedPokemon.size() <3){
+			int randomIndex = random.nextInt(allPokemon.size());
+			Pokemon randomPokemon = allPokemon.get(randomIndex);
+			if (!selectedPokemon.contains(randomPokemon)) {
+                selectedPokemon.add(randomPokemon);
+            } 
+		}
+		return selectedPokemon;
 	}
 	}

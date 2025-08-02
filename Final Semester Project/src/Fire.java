@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Fire extends Pokemon{
     //Fire pokemon constructor
     public Fire(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
@@ -8,6 +11,11 @@ public class Fire extends Pokemon{
     public static Pokemon torchic = new Fire("yurr",0,0,0,"Torchic",100,ZMoves.INFERNO_OVERDRIVE_TORCHIC);
     public static Pokemon tepig = new Fire("yurrr",0,0,0,"Tepig",100,ZMoves.INFERNO_OVERDRIVE_TEPIG);
 
+    public static List<Pokemon> getAllFirePokemon(){
+        return Arrays.asList(charmander,torchic,tepig);
+    }
+
+    @Override
     public void useTypeMove(){
         System.out.printf("%s uses a Fire type move!\n", getNickname());
     }

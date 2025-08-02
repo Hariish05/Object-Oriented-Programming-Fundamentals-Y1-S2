@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 public class Water extends Pokemon{
     // Water pokemon constructor 
     public Water(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
@@ -9,6 +11,10 @@ public class Water extends Pokemon{
     public static Pokemon oshawott = new Water("yurr",0,0,0,"Oshawott",100,ZMoves.HYDRO_VORTEX_OSHAWOTT);
     public static Pokemon piplup = new Water("yurrr",0,0,0,"Piplup",100,ZMoves.HYDRO_VORTEX_PIPLUP);
 
+    public static List<Pokemon> getAllWaterPokemon(){
+        return Arrays.asList(squirtle,oshawott,piplup);
+    }
+    
     @Override
     public void useTypeMove(){
         System.out.printf("%s uses a Water type move!\n", getNickname());

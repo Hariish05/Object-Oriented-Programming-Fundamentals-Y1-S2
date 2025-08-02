@@ -1,13 +1,19 @@
-class Grass extends Pokemon{
+import java.util.Arrays;
+import java.util.List;
+
+public class Grass extends Pokemon{
     //Grass Pokemon Constructor
     public Grass(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
         super(nickname, maxHp, atk, def, speed, species,ZMove);
     }
-
     //Grass pokemon object creation (PLACEHOLDER VALUES)
     public static Pokemon bulbasuar = new Grass("yur", 0, 0, 0, "Bulbasaur", 100, ZMoves.BLOOM_DOOM); 
     public static Pokemon snivy = new Grass("yurr", 0, 0, 0, "Snivy", 200, ZMoves.BREAKNECK_BLITZ); 
     public static Pokemon turtwig = new Grass("yurrr", 0, 0, 0, "Turtwig", 140, ZMoves.RAZOR_LEAF); 
+
+    public static List<Pokemon> getAllGrassPokemon(){
+        return Arrays.asList(bulbasuar,snivy,turtwig);
+    }
 
     @Override
     public void useTypeMove(){

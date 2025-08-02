@@ -1,35 +1,48 @@
-
+import java.lang.*;
 public class Battle {
 
-	private Pokemon opponent_pokemon;
-	private Pokemon player_pokemon;
+	private Pokemon opponentPokemon;
+	private Pokemon playerPokemon;
+	private int pokemonNumber;
 	
+
 	public Battle() {
 	}
 
-	public Battle(Pokemon opponent_pokemon, Pokemon player_pokemon) {
-		this.opponent_pokemon = opponent_pokemon;
-		this.player_pokemon = player_pokemon;
+	public Battle(Pokemon opponentPokemon, Pokemon playerPokemon) {
+		this.opponentPokemon = opponentPokemon;
+		this.playerPokemon = playerPokemon;
 	}
 
-	public Pokemon getOpponent_pokemon() {
-		return opponent_pokemon;
+	// public Pokemon getOpponent_pokemon() {
+	// 	return opponent_pokemon;
+	// }
+
+	// public void setOpponent_pokemon(Pokemon opponent_pokemon) {
+	// 	this.opponent_pokemon = opponent_pokemon;
+	// }
+
+	public Pokemon getPlayerPokemon() {
+		return playerPokemon;
 	}
 
-	public void setOpponent_pokemon(Pokemon opponent_pokemon) {
-		this.opponent_pokemon = opponent_pokemon;
+	public void setPlayerPokemon(Pokemon playerpokemon) {
+		this.playerPokemon = playerpokemon;
 	}
 
-	public Pokemon getPlayer_pokemon() {
-		return player_pokemon;
-	}
+	public void startBattle(Pokemon playerPokemon) {
+		opponentPokemon = Pokemon.getRandomPokemon();
+		while (playerPokemon.getHp() == 0 || opponentPokemon.getHp() == 0){
+			
+		}
 
-	public void setPlayer_pokemon(Pokemon player_pokemon) {
-		this.player_pokemon = player_pokemon;
-	}
+		// if( player.getspeed > opponentPokemon.getSpeed)
+		// 	playerTurn = true;
+		// 	break SKETCH LOGIC FOR WHO GOES FIRST
+		// else {
+		// 	firstP =computer
 
-	public void startBattle() {
-		
+		// }
 	}
 	
 	public void Loser() {
@@ -38,6 +51,6 @@ public class Battle {
 	
 	@Override
 	public String toString() {
-		return String.format("Battle [opponent_pokemon=%s, player_pokemon=%s]", opponent_pokemon, player_pokemon);
+		return String.format("Battle [opponentPokemon=%s, playerPokemon=%s]", opponentPokemon, playerPokemon);
 	}
 }

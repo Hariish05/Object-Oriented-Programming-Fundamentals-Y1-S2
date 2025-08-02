@@ -4,7 +4,7 @@ public class Player {
 	public static final Random RANDOM = new Random();
 	private String name;
 	private ArrayList<Pokemon> collection;
-	private Pokemon pokemonEquipped;
+	private Pokemon pokemonTeam;
 	private int score;
 	private boolean turn;
 
@@ -13,11 +13,9 @@ public class Player {
 		this.name = name;
 		this.collection = collection;
 		this.score = score;
-		this.pokemonEquipped= null;
+		this.pokemonTeam= null;
 		this.turn = false;
-	}
-
-	
+	}	
 	public boolean isTurn() {
 		return turn;
 	}
@@ -46,12 +44,9 @@ public class Player {
 	}
 
 	public Pokemon getPokemonEquipped(){
-		return pokemonEquipped;
+		return pokemonTeam;
 	}
 
-	/*public void getPokemonEquipped(){
-		this.pokemonEquipped = pokemonEquipped;
-	}*/
 /* 
 	public void addPokemon(Pokemon pokemon){
 		collection.add(pokemon);
@@ -73,8 +68,10 @@ public class Player {
 		pokemonEquipped.remove(pokemon);
 	}*/
 
-	public void battlePokemon(Player POKEMON_COLLECTION){
-		
+	public void pokemonBattle(Pokemon pokemon){
+		if(Pokemon.getAllPokemon().contains(pokemon)){
+			pokemonTeam = pokemon;
+		}
 
 
 	}
@@ -110,7 +107,7 @@ public class Player {
 
 // This has to change to pull from collection
 	public void setPokemonEquipped(Pokemon pokemonEquipped) {
-		this.pokemonEquipped = pokemonEquipped;
+		this.pokemonTeam = pokemonEquipped;
 	}
 
 }
