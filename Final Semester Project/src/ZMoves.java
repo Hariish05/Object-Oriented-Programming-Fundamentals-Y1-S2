@@ -109,6 +109,6 @@ public class ZMoves {
         return basePower;
     }
     public String toString(){
-        return String.format("Z-Move name: %s\nZ-Move base power: %d",getName(),getBasePower());
+        return String.format("Z-Move name: %s\nZ-Move base power: %d\n",getName(),getBasePower());
     }
 }

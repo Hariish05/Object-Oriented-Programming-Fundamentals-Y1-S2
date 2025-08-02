@@ -68,6 +68,9 @@ abstract class Pokemon {
 	public int getMaxHp() {
 		return maxHp;
 	}
+	public ZMoves getZMove() {
+		return ZMove;
+	}
 	public abstract void useTypeMove();
 	public abstract String toString();
 
