@@ -73,9 +73,18 @@ public class Player {
 		pokemonEquipped.remove(pokemon);
 	}*/
 
-	
+	public void battlePokemon(Player POKEMON_COLLECTION){
+		
+
+
+	}
+
+
+
 	public void Choose() {
 	}
+
+
 	public void Catch() {
 	}
 	
