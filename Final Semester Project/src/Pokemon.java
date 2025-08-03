@@ -71,6 +71,9 @@ abstract class Pokemon {
 	public ZMoves getZMove() {
 		return ZMove;
 	}
+	public void reduceHp(int amount) {
+		hp = Math.max(0, hp - amount);
+	}
 	public abstract void useTypeMove();
 	public abstract String toString();
 
