@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.print.attribute.SupportedValuesAttribute;
+
 public class Player {
 	public static final Random RANDOM = new Random();
 	private String name;
@@ -82,6 +84,65 @@ public class Player {
 		}
 
 	}
+
+	/*public void loadPlayerInfo(){
+		this.collection = FileManager.loadCollection();
+
+		String[] playerInfo = FileManager.loadPlayerInfo();
+		if(playerInfo != null){
+			this.name = playerInfo[0];
+			this.score = Integer.ParseInt(PlayerInfo[1]);
+		}
+	}
+		for later*/
+
+		public boolean selectedPokemonforBattle(Scanner scanner){
+			if(collection.isEmpty()){ 	
+				System.out.println("No pokemon available");
+				return false;
+			}
+
+			List<Pokemon> availablePokemon = new ArrayList<>(); //creates a list to filter out pokemon thats not defeated 
+			for (Pokemon pokemon : collection){
+				if (!pokemon.isDefeat()){
+				availablePokemon.add(pokemon);
+				}
+			}
+
+			if(availablePokemon.isEmpty()){
+				System.out.println("All of your pokemon are defeated");
+				return false;
+			}
+
+			System.out.println("Select your pokemon for battle");
+
+        	for (int i = 0; i < availablePokemon.size(); i++) { //display pokemon thats available
+            System.out.println((i + 1) + ". " + availablePokemon.get(i).toString());
+        	}
+
+			while(true){
+				System.out.print("Choose your Pokemon 1-" + availablePokemon.size() + ": ");
+				try{
+					int choice = scanner.nextInt();
+					scanner.nextLine();
+
+					if (choice > 1 && choice <= availablePokemon.size()){
+						pokemonTeam = availablePokemon.get(choice - 1); //sets pokemon to battle if the correctly input (-1 is cause before i displayed in 1 2 3 but arryas start at 0 index so -1)
+						System.out.println(pokemonTeam.getNickname() + " is ready");
+						return true;
+					} else{
+						System.out.println("Invalid choice");
+					}
+				} catch(Exception e){
+					System.out.println("Invalid input");
+					scanner.nextLine();
+				}
+			}
+        
+
+    }
+		
+
 
 	public static void Choose(Player player) {
 		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
