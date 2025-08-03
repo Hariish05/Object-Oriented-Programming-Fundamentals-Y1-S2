@@ -25,9 +25,9 @@ public class FileManager {
     // reads the text file created and pulls the currently avaliable pokemon and puts them into an arraylist
     public static List<Pokemon> getCurrentPokemonList(){
         int lineCount = 0;
+        List<Pokemon> currentPokemon = new ArrayList<>();
+        List<String> names = new ArrayList<>();
         try {
-            List<Pokemon> currentPokemon = new ArrayList<>();
-            List<String> names = new ArrayList<>();
             BufferedReader allPokemonFileReader1 = new BufferedReader(new FileReader("allPokemon.txt"));
             while(allPokemonFileReader1.readLine() !=null) lineCount++;
             allPokemonFileReader1.close();
