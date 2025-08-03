@@ -149,4 +149,14 @@ abstract class Pokemon {
 		}
 		return selectedPokemon;
 	}
+	public static String[] getAllPokemonListNames(List<Pokemon> allPokemon){
+		String[] pokemonNames = new String[12];
+		int count =0;
+		for(Pokemon i: allPokemon ) {
+			String temp = i.getSpecies();
+			pokemonNames[count] = temp;
+			count++;
+		}
+		return pokemonNames;
+	}
 	}

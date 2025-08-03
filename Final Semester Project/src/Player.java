@@ -78,7 +78,7 @@ public class Player {
 
 
 
-	public static void Choose(Player player) {
+	public static void chooseStarer(Player player) {
 		ArrayList<Pokemon> selectedPokemon= Pokemon.getThreeRandomPokemon();
 		int count = 1;
 		int choice,tempChoice;
@@ -123,6 +123,7 @@ public class Player {
 					input.next();
 				}
 		}
+		input.close();
 		Pokemon finalPokemon = selectedPokemon.get(choice);
 		player.setCollection(finalPokemon);
 		System.out.println("Pokemon has been added to your collection!");

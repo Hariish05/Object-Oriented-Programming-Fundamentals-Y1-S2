@@ -1,5 +1,7 @@
 public class driverFile {
     public static void main(String[] args)  {
+        //THIS HAS TO BE DONE AT THE START EVERYTIME
+        FileManager.createAllPokemonTxt();
         //TESTS
         Grass.bulbasuar.setHp(Grass.bulbasuar.getMaxHp()-2);
         System.out.println(Grass.bulbasuar.toString());
@@ -10,6 +12,7 @@ public class driverFile {
             System.out.println("Pokemon has slipped away!");
         }
         Player dummy = new Player("yur");
-        Player.Choose(dummy);
+        Player.chooseStarer(dummy);
+        FileManager.getCurrentPokemonList();
     }
 }
