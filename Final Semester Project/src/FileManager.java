@@ -9,7 +9,7 @@ public class FileManager {
         try {
             File allPokemonFile = new File("allPokemon.txt");
             BufferedWriter allPokemonFileWriter = new BufferedWriter(new FileWriter(allPokemonFile,true));
-            BufferedReader allPokemonFileReader = new BufferedReader(new FileReader("allPokemon.txt"));
+            BufferedReader allPokemonFileReader = new BufferedReader(new FileReader(allPokemonFile));
             if (allPokemonFileReader.readLine() == null){
                 for(String i: names){
                     allPokemonFileWriter.append(i);
@@ -23,9 +23,9 @@ public class FileManager {
         }
     }
     // reads the text file created and pulls the currently avaliable pokemon and puts them into an arraylist
-    public static List<Pokemon> getCurrentPokemonList(){
+    public static List<Pokemon> getCurrentPokemonObjectList(){
         int lineCount = 0;
-        List<Pokemon> currentPokemon = new ArrayList<>();
+        List<Pokemon> currentPokemonObjectList = new ArrayList<>();
         List<String> names = new ArrayList<>();
         try {
             BufferedReader allPokemonFileReader1 = new BufferedReader(new FileReader("allPokemon.txt"));
@@ -38,14 +38,34 @@ public class FileManager {
             allPokemonFileReader2.close();
             while (names.contains("")) names.remove("");
             for(String i: names){
-                currentPokemon.add(Pokemon.getPokemonByName(i));
+                currentPokemonObjectList.add(Pokemon.getPokemonByName(i));
             }
-            System.out.println(currentPokemon);
-            return currentPokemon;
+            System.out.println(currentPokemonObjectList);
+            return currentPokemonObjectList;
         } catch (Exception e) {
             System.out.println("An error has occured during file reading.");
             return new ArrayList<>();
         }
     }
+    //reads the text file just as the function above but returns the names of the pokemon rather than the objects in a list
+    public static List<String> getCurrentPokemonNameList(){
+        int lineCount = 0;
+        List<String> names = new ArrayList<>();
+        try {
+            BufferedReader allPokemonFileReader1 = new BufferedReader(new FileReader("allPokemon.txt"));
+            while(allPokemonFileReader1.readLine() !=null) lineCount++;
+            allPokemonFileReader1.close();
+            BufferedReader allPokemonFileReader2 = new BufferedReader(new FileReader("allPokemon.txt"));
+            for (int q = 0 ; q<lineCount ;q++){
+                names.add(allPokemonFileReader2.readLine());
+            }
+            allPokemonFileReader2.close();
+            while (names.contains("")) names.remove("");
+            return names;
+        } catch (Exception e){
+            return new ArrayList<>();
+        }
+    }
+    // Another method will be created here for writing to the allPokemon.txt
 
 }

@@ -13,6 +13,5 @@ public class driverFile {
         }
         Player dummy = new Player("yur");
         Player.chooseStarer(dummy);
-        FileManager.getCurrentPokemonList();
     }
 }

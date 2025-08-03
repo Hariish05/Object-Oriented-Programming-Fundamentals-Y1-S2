@@ -144,8 +144,9 @@ public class Player {
 
 	public static void chooseStarer(Player player) {
 		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
+		List<String> names = new ArrayList<>();
 		int count = 1;
-		int choice, tempChoice;
+		int choice, tempChoice, lineCount=0;
 
 		Scanner input = new Scanner(System.in);
 		for (Pokemon i : selectedPokemon) {
@@ -190,6 +191,12 @@ public class Player {
 		input.close();
 		Pokemon finalPokemon = selectedPokemon.get(choice);
 		player.setCollection(finalPokemon);
+		names = FileManager.getCurrentPokemonNameList();
+		String selectedPokemonName = finalPokemon.getSpecies();
+		if (names.contains(selectedPokemonName)){
+			names.remove(selectedPokemonName);
+		}
+		//INCOMPLETE
 		System.out.println("Pokemon has been added to your collection!");
 
 		input.close();
