@@ -196,7 +196,7 @@ public class Player {
 		if (names.contains(selectedPokemonName)){
 			names.remove(selectedPokemonName);
 		}
-		//INCOMPLETE
+		//INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names 
 		System.out.println("Pokemon has been added to your collection!");
 
 		input.close();
