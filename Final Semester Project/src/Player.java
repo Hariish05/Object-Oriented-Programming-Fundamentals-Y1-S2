@@ -221,7 +221,7 @@ public class Player {
 		}
 		playerData.add(improvedCollection);
 		playerData.add(score);
-		playerData.add(pokemonTeam);
+		// playerData.add(pokemonTeam);
 		return playerData;
 	}
 
