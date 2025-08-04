@@ -13,6 +13,14 @@ public class driverFile {
         }
         Player dummy = new Player("yur");
         Player.chooseStarter(dummy);
+        
+        Pokemon playerPokemon = dummy.getCollection().get(0);
+        Pokemon wildPokemon = Pokemon.getRandomPokemon();
+        System.out.println("\nA wild " + wildPokemon.getSpecies() + " appeared!");
+
+        // Intiate battle
+        Battle battle = new Battle(wildPokemon, playerPokemon);
+        battle.startBattle();
 
     }
 }
