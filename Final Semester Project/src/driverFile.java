@@ -6,11 +6,11 @@ public class driverFile {
         Grass.bulbasuar.setHp(Grass.bulbasuar.getMaxHp() - 2);
         System.out.println(Grass.bulbasuar.toString());
     
+        FileManager.readPlayerDataFile();
+        
         Player dummy = new Player("Test_Player");
         Player.chooseStarter(dummy);
-        FileManager playerFileManager = new FileManager();
-        playerFileManager.playerTextFile(dummy);
-
+        FileManager.createPlayerDataFile(dummy);
 
         Pokemon playerPokemon = dummy.getCollection().get(0);
         Pokemon wildPokemon = Pokemon.getRandomPokemon();

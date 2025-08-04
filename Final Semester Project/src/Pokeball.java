@@ -46,9 +46,11 @@ class Pokeball {
 	public static void placeCaughtPokemonInCollection(boolean caught,Pokemon pokemon,Player player){
 		if(caught){
 			player.setCollection(pokemon);
-			System.out.printf("You have caught %s!\n%s has been added to your collection",pokemon.getSpecies(),pokemon.getSpecies());
+			System.out.printf("\nYou have caught %s!\n%s has been added to your collection!",pokemon.getSpecies(),pokemon.getSpecies());
+			FileManager.removePokemonFromTxt(pokemon);
+
 		} else {
-			System.out.printf("Your attempt to catch %s has failed!", pokemon.getSpecies());
+			System.out.printf("\nYour attempt to catch %s has failed!", pokemon.getSpecies());
 		}
 	}
 

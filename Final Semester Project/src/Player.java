@@ -168,7 +168,7 @@ public class Player {
 			} else if (temp == Fire.class) {
 				pokemonType = "Fire";
 			} else {
-				pokemonType = "Unknown";
+				pokemonType = "Normal";
 			}
 
 			System.out.printf("\n%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType,
@@ -194,18 +194,12 @@ public class Player {
 		// '-1' to match index
 		Pokemon finalPokemon = selectedPokemon.get(choice - 1);
 		player.setCollection(finalPokemon);
-		names = FileManager.getCurrentPokemonNameList();
-		String selectedPokemonName = finalPokemon.getSpecies();
-		if (names.contains(selectedPokemonName)) {
-			names.remove(selectedPokemonName);
-		}
-		FileManager.writeToAllPokemonList(names);
+		FileManager.removePokemonFromTxt(finalPokemon);
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
-		input.close();
 	}
 
-	// to store playerData in a list
-	public List<Object> playerData() {
+	// to store playerData in a list (being reworked)
+	/*public List<Object> playerData() {
 		List<Object> playerData = new ArrayList<>();
 		playerData.add(name);
 		// to remove [] before and after the collection. it just makes it ncier to look in the array
@@ -221,7 +215,7 @@ public class Player {
 		playerData.add(score);
 		// playerData.add(pokemonTeam);
 		return playerData;
-	}
+	}*/
 
 	public void catchWildPokemon(Player player) {
 		if (player.getCollection().size() >=3){

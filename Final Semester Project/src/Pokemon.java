@@ -116,12 +116,14 @@ abstract class Pokemon {
 			return 1.0;
 		}
 	}
+	// DONT USE THIS METHOD TO GET THE LIST OF ALL POKEMON 
 	public static List<Pokemon> getAllPokemon() {
         List<Pokemon> allPokemonList = new ArrayList<>();
         allPokemonList.addAll(Fire.getAllFirePokemon());
         allPokemonList.addAll(Water.getAllWaterPokemon());
         allPokemonList.addAll(Grass.getAllGrassPokemon());
         allPokemonList.addAll(Electric.getAllElectricPokemon());
+		allPokemonList.addAll(Normal.getAllNormalPokemon());
         return allPokemonList;
     }
 	public static Pokemon getPokemonByName(String name) {
@@ -134,7 +136,13 @@ abstract class Pokemon {
         return null; // Pokemon not found
     }
 	public static Pokemon getRandomPokemon() {
-        List<Pokemon> allPokemon = getAllPokemon();
+        List<Pokemon> allPokemon = new ArrayList<>();
+		List<String> currentPokemonListNames = FileManager.getCurrentPokemonNameList();
+		Pokemon temp;
+		for (String i: currentPokemonListNames){
+			temp = getPokemonByName(i);
+			allPokemon.add(temp);
+		}
         Random random = new Random();
         int randomIndex = random.nextInt(allPokemon.size());
         return allPokemon.get(randomIndex);
@@ -159,7 +167,7 @@ abstract class Pokemon {
 		return selectedPokemon;
 	}
 	public static String[] getAllPokemonListNames(List<Pokemon> allPokemon){
-		String[] pokemonNames = new String[12];
+		String[] pokemonNames = new String[15];
 		int count =0;
 		for(Pokemon i: allPokemon ) {
 			String temp = i.getSpecies();

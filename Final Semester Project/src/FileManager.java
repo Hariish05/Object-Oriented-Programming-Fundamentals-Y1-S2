@@ -24,32 +24,56 @@ public class FileManager {
         }
     }
 
-    // Appends player data to playerData.txt without overwriting old data
-    public void playerTextFile(Player player) {
-        try (BufferedWriter playerFileWriter = new BufferedWriter(new FileWriter("playerData.txt", true))) {
-            List<Pokemon> playerPokemonList = player.getCollection();
-            List<String> playerPokemonNameList = new ArrayList<>();
-            String pokemonName;
-            for (Pokemon i: playerPokemonList){
-                pokemonName = i.getSpecies();
-                playerPokemonNameList.add(pokemonName);
+    // (REPLACED OLD METHOD) creates playerData text file and only allows one player to be stored
+    public static void createPlayerDataFile(Player player) {
+        String name = player.getName();
+        List<Pokemon> playerPokemonList = player.getCollection();
+        List<String> playerPokemonNameList= new ArrayList<>();
+        int score = player.getScore();
+        for (Pokemon i: playerPokemonList){
+            playerPokemonNameList.add(i.getSpecies());
+        }
+        try {
+            File playerDataFile = new File("playerData.txt");
+            BufferedWriter playerDataFileWriter = new BufferedWriter(new FileWriter(playerDataFile,true));
+            BufferedReader playerDataFileReader = new BufferedReader(new FileReader(playerDataFile));
+            if (playerDataFileReader.readLine() == null){
+                playerDataFileWriter.append(name);
+                playerDataFileWriter.newLine();
+                playerDataFileWriter.append(Integer.toString(score));
+                playerDataFileWriter.newLine();
+                for (String i: playerPokemonNameList){
+                    playerDataFileWriter.append(i);
+                    playerDataFileWriter.newLine();
+                }
+                playerDataFileReader.close();
+                playerDataFileWriter.close();
             }
-            playerFileWriter.write(player.getName());
-            playerFileWriter.newLine();
-
-            for (String i: playerPokemonNameList){
-                playerFileWriter.write(i);
-            playerFileWriter.newLine();
-            }
-            
-            playerFileWriter.write(Integer.toString(player.getScore()));
-            // add a separator between players:
-            playerFileWriter.newLine();
-            playerFileWriter.write("-----");
-            playerFileWriter.newLine();
         } catch (Exception e) {
             System.out.println("An error has occurred during file writing.");
-            e.printStackTrace();
+        }
+    }
+    public static List<Object> readPlayerDataFile(){
+        int lineCount=0;
+        List<Object> playerDataList = new ArrayList<>();
+        Object temp = null;
+        try {
+            BufferedReader playerDataFileReader1 = new BufferedReader(new FileReader("playerData.txt"));
+            while (playerDataFileReader1.readLine() != null) lineCount++;
+            playerDataFileReader1.close();
+            if (lineCount !=0){
+                BufferedReader playerDataFileReader2 = new BufferedReader(new FileReader("playerData.txt"));
+                for (int i =0; i<lineCount;i++){
+                    temp = playerDataFileReader2.readLine();
+                    playerDataList.add(temp);
+                }
+            } else {
+                System.out.println("no value!"); //test output, will be removed in final
+                return null;
+            }
+            return playerDataList;
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -61,8 +85,7 @@ public class FileManager {
         List<String> names = new ArrayList<>();
         try {
             BufferedReader allPokemonFileReader1 = new BufferedReader(new FileReader("allPokemon.txt"));
-            while (allPokemonFileReader1.readLine() != null)
-                lineCount++;
+            while (allPokemonFileReader1.readLine() != null) lineCount++;
             allPokemonFileReader1.close();
             BufferedReader allPokemonFileReader2 = new BufferedReader(new FileReader("allPokemon.txt"));
             for (int q = 0; q < lineCount; q++) {
@@ -89,8 +112,7 @@ public class FileManager {
         List<String> names = new ArrayList<>();
         try {
             BufferedReader allPokemonFileReader1 = new BufferedReader(new FileReader("allPokemon.txt"));
-            while (allPokemonFileReader1.readLine() != null)
-                lineCount++;
+            while (allPokemonFileReader1.readLine() != null) lineCount++;
             allPokemonFileReader1.close();
             BufferedReader allPokemonFileReader2 = new BufferedReader(new FileReader("allPokemon.txt"));
             for (int q = 0; q < lineCount; q++) {
@@ -104,14 +126,37 @@ public class FileManager {
             return new ArrayList<>();
         }
     }
-    // Another method will be created here for writing to the allPokemon.txt
+    //method to remove desired pokemon from allPokemon.txt
+    public static void removePokemonFromTxt(Pokemon pokemon){
+        List<String> currentPokemonNameList = getCurrentPokemonNameList();
+        String pokemonNameTORemove = pokemon.getSpecies();
+        if (currentPokemonNameList.contains(pokemonNameTORemove)){
+            currentPokemonNameList.remove(pokemonNameTORemove);
+            writeToAllPokemonList(currentPokemonNameList);
+        }else{
+            System.out.println("error message (to be removed)");
+        }
+    }
+    //method to add desired pokemon to allPokemon.txt
+    public static void addPokemonToTxt(Pokemon pokemon){
+        List<String> currentPokemonNameList = getCurrentPokemonNameList();
+        String pokemonNameTORemove = pokemon.getSpecies();
+        if (!currentPokemonNameList.contains(pokemonNameTORemove)){
+            currentPokemonNameList.add(pokemonNameTORemove);
+            writeToAllPokemonList(currentPokemonNameList);
+        }else{
+            System.out.println("error message (to be removed)");
+        }
+    }
+    
     public static void writeToAllPokemonList(List<String> names){
-
-        try (BufferedWriter allPokemonFileWriter = new BufferedWriter(new FileWriter("allPokemon.txt"));){
+        try {
+            BufferedWriter allPokemonFileWriter = new BufferedWriter(new FileWriter("allPokemon.txt"));
             for (String i : names) {
                     allPokemonFileWriter.append(i);
                     allPokemonFileWriter.append("\n");
                 }
+                allPokemonFileWriter.close();
         } catch (Exception e) {
         }
     }

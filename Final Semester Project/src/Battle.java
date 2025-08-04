@@ -1,8 +1,5 @@
 import java.util.*;
 public class Battle {
-
-	public static final Scanner SCANNER = new Scanner(System.in);
-	
 	private Pokemon opponentPokemon;
 	private Pokemon playerPokemon;
 	private Random rand;
@@ -18,6 +15,8 @@ public class Battle {
 	}
 	
 	public void startBattle(Player player) {
+		int choice=0,tempChoice=0;
+
 		System.out.println("A wild " + opponentPokemon.getNickname() + " appeared!");
 
 		// Randomize who goes first based on speed and some luck
@@ -36,7 +35,32 @@ public class Battle {
 			System.out.println("You lost the battle...");
 		} else {
 			System.out.println("You defeated " + opponentPokemon.getNickname() + "!");
-			tryCapture(player);
+			if (player.getCollection().size() >=3){
+				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(", opponentPokemon.getSpecies());
+			}else{
+				System.out.printf("Do you want to attempt capturing %s? (1 for YES, 2 for NO): ",opponentPokemon.getSpecies());
+				while (true) {
+					Scanner input = new Scanner(System.in);
+					try {
+						tempChoice = input.nextInt();
+						if (tempChoice <= 0 || tempChoice > 2) {
+							System.out.println("Invalid number. Try again.");
+						} else {
+							choice = tempChoice;
+							break;
+						}
+					} catch (InputMismatchException e) {
+						System.out.println("Enter a number.");
+						input.next();
+					}
+				}
+				if (choice == 1){
+					tryCapture(player);
+				}else{
+					System.out.println("Returning...");
+				}
+				
+			}
 		}
 	}
 	
@@ -45,18 +69,12 @@ public class Battle {
 	        System.out.println("You can only catch a Pokémon after it's fainted!");
 	        return;
 	    }
-
+		System.out.println("A random Pokeball will be picked for you...");
 	    Pokeball pokeball = Pokeball.getRandomPokeballByOdds();
-	    System.out.println("You threw a " + pokeball.getBallName() + "!");
+		System.out.printf("You will attempt to catch %s with a %s...",opponentPokemon.getSpecies(),pokeball.getBallName());
 
 	    boolean caught = Pokeball.attemptCatch(pokeball);
-
-	    if (caught) {
-	        System.out.println("Congratulations! You caught " + opponentPokemon.getNickname() + "!");
-	        player.getCollection().add(opponentPokemon); // Add to player's collection
-	    } else {
-	        System.out.println(opponentPokemon.getNickname() + " broke free!");
-	    }
+		Pokeball.placeCaughtPokemonInCollection(caught, opponentPokemon,player);
 	}	
 	
 	private boolean determineFirstTurn() {
