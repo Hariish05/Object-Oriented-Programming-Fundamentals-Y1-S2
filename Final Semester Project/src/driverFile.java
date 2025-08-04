@@ -12,6 +12,7 @@ public class driverFile {
             System.out.println("Pokemon has slipped away!");
         }
         Player dummy = new Player("yur");
-        Player.chooseStarer(dummy);
+        Player.chooseStarter(dummy);
+
     }
 }
