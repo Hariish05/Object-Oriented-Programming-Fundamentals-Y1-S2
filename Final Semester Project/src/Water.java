@@ -7,9 +7,9 @@ public class Water extends Pokemon{
     }
 
     // Water Pokemon object creation (VALUES NOT FINAL)
-    public static Pokemon squirtle = new Water("yur",0,0,0,"Squirtle",100,ZMoves.HYDRO_VORTEX_SQUIRTLE);
-    public static Pokemon oshawott = new Water("yurr",0,0,0,"Oshawott",100,ZMoves.HYDRO_VORTEX_OSHAWOTT);
-    public static Pokemon piplup = new Water("yurrr",0,0,0,"Piplup",100,ZMoves.HYDRO_VORTEX_PIPLUP);
+    public static Pokemon squirtle = new Water("Squirtle",0,0,0,"Squirtle",100,ZMoves.HYDRO_VORTEX_SQUIRTLE);
+    public static Pokemon oshawott = new Water("Oshawott",0,0,0,"Oshawott",100,ZMoves.HYDRO_VORTEX_OSHAWOTT);
+    public static Pokemon piplup = new Water("Piplup",0,0,0,"Piplup",100,ZMoves.HYDRO_VORTEX_PIPLUP);
 
     public static List<Pokemon> getAllWaterPokemon(){
         return Arrays.asList(squirtle,oshawott,piplup);
