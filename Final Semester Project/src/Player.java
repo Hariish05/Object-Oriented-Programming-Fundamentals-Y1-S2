@@ -142,7 +142,7 @@ public class Player {
 		
 
 
-	public static void chooseStarer(Player player) {
+	public static void chooseStarter(Player player) {
 		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
 		List<String> names = new ArrayList<>();
 		int count = 1;
@@ -193,6 +193,11 @@ public class Player {
 		// '-1' to match index
 		Pokemon finalPokemon = selectedPokemon.get(choice - 1);
 		player.setCollection(finalPokemon);
+		names = FileManager.getCurrentPokemonNameList();
+		String selectedPokemonName = finalPokemon.getSpecies();
+		if (names.contains(selectedPokemonName)){
+			names.remove(selectedPokemonName);
+		}
 
 		//INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names 
 		// Added Pokémon for current use
