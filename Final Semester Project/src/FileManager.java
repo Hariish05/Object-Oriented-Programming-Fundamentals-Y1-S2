@@ -26,14 +26,25 @@ public class FileManager {
 
     // Appends player data to playerData.txt without overwriting old data
     public void playerTextFile(Player player) {
-        List<Object> playerDataFile = player.playerData();
-        File playerFile = new File("playerData.txt");
-        try (BufferedWriter playerFileWriter = new BufferedWriter(new FileWriter(playerFile, true))) {
-            for (Object i : playerDataFile) {
-                playerFileWriter.write(i.toString().trim());
-                playerFileWriter.newLine();
+        try (BufferedWriter playerFileWriter = new BufferedWriter(new FileWriter("playerData.txt", true))) {
+            List<Pokemon> playerPokemonList = player.getCollection();
+            List<String> playerPokemonNameList = new ArrayList<>();
+            String pokemonName;
+            for (Pokemon i: playerPokemonList){
+                pokemonName = i.getSpecies();
+                playerPokemonNameList.add(pokemonName);
             }
+            playerFileWriter.write(player.getName());
+            playerFileWriter.newLine();
+
+            for (String i: playerPokemonNameList){
+                playerFileWriter.write(i);
+            playerFileWriter.newLine();
+            }
+            
+            playerFileWriter.write(Integer.toString(player.getScore()));
             // add a separator between players:
+            playerFileWriter.newLine();
             playerFileWriter.write("-----");
             playerFileWriter.newLine();
         } catch (Exception e) {
@@ -94,5 +105,14 @@ public class FileManager {
         }
     }
     // Another method will be created here for writing to the allPokemon.txt
+    public static void writeToAllPokemonList(List<String> names){
 
+        try (BufferedWriter allPokemonFileWriter = new BufferedWriter(new FileWriter("allPokemon.txt"));){
+            for (String i : names) {
+                    allPokemonFileWriter.append(i);
+                    allPokemonFileWriter.append("\n");
+                }
+        } catch (Exception e) {
+        }
+    }
 }

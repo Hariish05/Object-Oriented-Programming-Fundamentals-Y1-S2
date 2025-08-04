@@ -140,7 +140,13 @@ abstract class Pokemon {
         return allPokemon.get(randomIndex);
     }
 	public static ArrayList<Pokemon> getThreeRandomPokemon(){
-		List<Pokemon> allPokemon = getAllPokemon();
+		List<Pokemon> allPokemon = new ArrayList<>();
+		List<String> currentPokemonListNames = FileManager.getCurrentPokemonNameList();
+		Pokemon temp;
+		for (String i: currentPokemonListNames){
+			temp = getPokemonByName(i);
+			allPokemon.add(temp);
+		}
 		ArrayList<Pokemon> selectedPokemon = new ArrayList<>();
 		Random random = new Random();
 		while (selectedPokemon.size() <3){

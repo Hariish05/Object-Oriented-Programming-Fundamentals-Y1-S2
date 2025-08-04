@@ -5,22 +5,18 @@ public class driverFile {
         // TESTS
         Grass.bulbasuar.setHp(Grass.bulbasuar.getMaxHp() - 2);
         System.out.println(Grass.bulbasuar.toString());
-        boolean catchStatus = Pokeball.attemptCatch(Pokeball.POKEBALL);
-        if (catchStatus) {
-            System.out.println("Pokemon has been caught!");
-        } else {
-            System.out.println("Pokemon has slipped away!");
-        }
+    
         Player dummy = new Player("Test_Player");
         Player.chooseStarter(dummy);
-        System.out.println(dummy.playerData());
         FileManager playerFileManager = new FileManager();
         playerFileManager.playerTextFile(dummy);
+
+
         Pokemon playerPokemon = dummy.getCollection().get(0);
         Pokemon wildPokemon = Pokemon.getRandomPokemon();
 
         // Initiate Battle
         Battle battle = new Battle(wildPokemon, playerPokemon);
-        battle.startBattle();
+        battle.startBattle(dummy);
     }
 }

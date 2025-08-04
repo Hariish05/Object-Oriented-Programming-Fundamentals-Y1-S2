@@ -142,7 +142,7 @@ public class Player {
 		}
 
 	}
-
+// NEEDS IF STATEMENT TO PREVENT EXISTING PLAYER FROM SELECTING A STARTER EVERYTIME
 	public static void chooseStarter(Player player) {
 		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
 		List<String> names = new ArrayList<>();
@@ -199,9 +199,7 @@ public class Player {
 		if (names.contains(selectedPokemonName)) {
 			names.remove(selectedPokemonName);
 		}
-
-		// INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names
-		// Added Pokémon for current use
+		FileManager.writeToAllPokemonList(names);
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 		input.close();
 	}
@@ -221,11 +219,63 @@ public class Player {
 		}
 		playerData.add(improvedCollection);
 		playerData.add(score);
-		playerData.add(pokemonTeam);
+		// playerData.add(pokemonTeam);
 		return playerData;
 	}
 
-	public void Catch() {
+	public void catchWildPokemon(Player player) {
+		if (player.getCollection().size() >=3){
+			System.out.println("You do not have space to store anymore Pokemons!");
+		}else{
+			Scanner input = new Scanner(System.in);
+			List<Pokemon> wildPokemonList = Pokemon.getThreeRandomPokemon();
+			int count = 1,tempChoice,choice;
+			for (Pokemon i: wildPokemonList){
+				String name = i.getSpecies();
+				int atk = i.getAtk();
+				int def = i.getDef();
+				int speed = i.getSpeed();
+				ZMoves ZMove = i.getZMove();
+				Class<?> temp = i.getClass();
+				String pokemonType;
+
+				if (temp == Water.class) {
+					pokemonType = "Water";
+				} else if (temp == Electric.class) {
+					pokemonType = "Electric";
+				} else if (temp == Grass.class) {
+					pokemonType = "Grass";
+				} else if (temp == Fire.class) {
+					pokemonType = "Fire";
+				} else {
+					pokemonType = "Unknown";
+				}
+
+				System.out.printf("\n%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType, name, atk, def, speed, ZMove.toString());
+				count++;
+			}
+			System.out.println("Which pokemon do you want to catch? (Enter 1, 2 or 3): ");
+			while (true) {
+				try {
+					tempChoice = input.nextInt();
+					if (tempChoice <= 0 || tempChoice > 3) {
+						System.out.println("Invalid number. Try again.");
+					} else {
+						choice = tempChoice;
+						break;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Enter a number.");
+					input.next();
+				}
+			}
+			Pokemon pokemonToAttemptCatch = wildPokemonList.get(choice-1);
+			System.out.println("A random pokeball will be picked for you now...");
+			Pokeball randomPokeball = Pokeball.getRandomPokeballByOdds();
+			System.out.printf("You will attempt to catch this Pokemon with a %s!", randomPokeball.getBallName());
+			boolean caught = Pokeball.attemptCatch(randomPokeball);
+			Pokeball.placeCaughtPokemonInCollection(caught, pokemonToAttemptCatch, player);
+		}
 	}
 
 	@Override

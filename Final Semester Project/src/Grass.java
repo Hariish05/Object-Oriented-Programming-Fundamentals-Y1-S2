@@ -7,9 +7,10 @@ public class Grass extends Pokemon{
         super(nickname, maxHp, atk, def, speed, species,ZMove);
     }
     //Grass pokemon object creation (PLACEHOLDER VALUES)
-    public static Pokemon bulbasuar = new Grass("Bulbasuar", 5, 0, 0, "Bulbasaur", 100, ZMoves.BLOOM_DOOM); 
-    public static Pokemon snivy = new Grass("Snivy", 6, 0, 0, "Snivy", 200, ZMoves.BREAKNECK_BLITZ); 
-    public static Pokemon turtwig = new Grass("Turtwig", 5, 0, 0, "Turtwig", 140, ZMoves.RAZOR_LEAF); 
+    public static Pokemon bulbasuar = new Grass("Bulbasuar", 49,49,45, "Bulbasaur", 45, ZMoves.BLOOM_DOOM); 
+    public static Pokemon snivy = new Grass("Snivy", 45,55,63, "Snivy", 45, ZMoves.BREAKNECK_BLITZ); 
+    public static Pokemon turtwig = new Grass("Turtwig", 68,64	
+,31, "Turtwig", 55, ZMoves.RAZOR_LEAF); 
 
     public static List<Pokemon> getAllGrassPokemon(){
         return Arrays.asList(bulbasuar,snivy,turtwig);

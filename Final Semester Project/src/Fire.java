@@ -7,9 +7,9 @@ public class Fire extends Pokemon{
         super(nickname, maxHp, atk, def, speed, species,ZMove);
     }
     //Fire Pokemon object creation (VALUES NOT FINAL)
-    public static Pokemon charmander = new Fire("Charmander",5,0,0,"Charmander",100,ZMoves.INFERNO_OVERDRIVE_CHARMANDER);
-    public static Pokemon torchic = new Fire("Torchic",6,0,0,"Torchic",100,ZMoves.INFERNO_OVERDRIVE_TORCHIC);
-    public static Pokemon tepig = new Fire("Tepig",6,0,0,"Tepig",100,ZMoves.INFERNO_OVERDRIVE_TEPIG);
+    public static Pokemon charmander = new Fire("Charmander",52,43,65,"Charmander",39,ZMoves.INFERNO_OVERDRIVE_CHARMANDER);
+    public static Pokemon torchic = new Fire("Torchic",60,40,45,"Torchic",45,ZMoves.INFERNO_OVERDRIVE_TORCHIC);
+    public static Pokemon tepig = new Fire("Tepig",63,45,45,"Tepig",65,ZMoves.INFERNO_OVERDRIVE_TEPIG);
 
     public static List<Pokemon> getAllFirePokemon(){
         return Arrays.asList(charmander,torchic,tepig);

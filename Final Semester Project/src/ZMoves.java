@@ -31,6 +31,25 @@ public class ZMoves {
     "Turtwig's Z-Move",
     100
     );
+    //ZMove Creation NORMAL (BASE POWER VALUES NOT FINAL)
+    public static final ZMoves BREAKNECK_BLITZ_PIDGEY = new ZMoves(
+    "Breakneck Blitz",
+    "Normal",
+    "Pidgey's Z-Move",
+    110
+    );
+    public static final ZMoves EXTREME_EVOBOOST = new ZMoves(
+    "Extreme Evoboost",
+    "Normal",
+    "Eevee's Signature Z-Move",
+    100
+    );
+    public static final ZMoves PULVERIZING_PANCAKE = new ZMoves(
+    "Pulverizing Pancake",
+    "Normal",
+    "Munchlax's Z-Move",
+    150
+    );
     //ZMove Creation WATER (BASE POWER VALUES NOT FINAL)
     public static final ZMoves HYDRO_VORTEX_SQUIRTLE = new ZMoves(
     "Hydro Vortex",
@@ -108,6 +127,7 @@ public class ZMoves {
     public int getBasePower() {
         return basePower;
     }
+    @Override
     public String toString(){
         return String.format("Z-Move name: %s\nZ-Move base power: %d\n",getName(),getBasePower());
     }

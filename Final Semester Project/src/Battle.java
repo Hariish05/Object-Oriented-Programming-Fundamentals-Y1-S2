@@ -1,6 +1,8 @@
 import java.util.*;
 public class Battle {
 
+	public static final Scanner SCANNER = new Scanner(System.in);
+	
 	private Pokemon opponentPokemon;
 	private Pokemon playerPokemon;
 	private Random rand;
@@ -15,7 +17,7 @@ public class Battle {
 		this.rand = new Random();
 	}
 	
-	public void startBattle() {
+	public void startBattle(Player player) {
 		System.out.println("A wild " + opponentPokemon.getNickname() + " appeared!");
 
 		// Randomize who goes first based on speed and some luck
@@ -34,33 +36,28 @@ public class Battle {
 			System.out.println("You lost the battle...");
 		} else {
 			System.out.println("You defeated " + opponentPokemon.getNickname() + "!");
-			//tryCapture();
+			tryCapture(player);
 		}
 	}
-
-	//public void startBattle(Pokemon playerPokemon) {
-	//	opponentPokemon = Pokemon.getRandomPokemon();
-	//	while (playerPokemon.getHp() == 0 || opponentPokemon.getHp() == 0){
-			
-	//	}
-
-		// if( player.getspeed > opponentPokemon.getSpeed)
-		// 	playerTurn = true;
-		// 	break SKETCH LOGIC FOR WHO GOES FIRST
-		// else {
-		// 	firstP =computer
-
-		// }
-	//}
 	
-	// public Pokemon getOpponent_pokemon() {
-	// 	return opponent_pokemon;
-	// }
+	private void tryCapture(Player player) {
+	    if (opponentPokemon.getHp() > 0) {
+	        System.out.println("You can only catch a Pokémon after it's fainted!");
+	        return;
+	    }
 
-	// public void setOpponent_pokemon(Pokemon opponent_pokemon) {
-	// 	this.opponent_pokemon = opponent_pokemon;
-	// }
-	
+	    Pokeball pokeball = Pokeball.getRandomPokeballByOdds();
+	    System.out.println("You threw a " + pokeball.getBallName() + "!");
+
+	    boolean caught = Pokeball.attemptCatch(pokeball);
+
+	    if (caught) {
+	        System.out.println("Congratulations! You caught " + opponentPokemon.getNickname() + "!");
+	        player.getCollection().add(opponentPokemon); // Add to player's collection
+	    } else {
+	        System.out.println(opponentPokemon.getNickname() + " broke free!");
+	    }
+	}	
 	
 	private boolean determineFirstTurn() {
 		int playerRoll = playerPokemon.getSpeed() + rand.nextInt(10);
@@ -78,32 +75,22 @@ public class Battle {
 	}
 	
 	private void playerAttack() {
-		int damage = calculateDamage(playerPokemon.getAtk());
+		int damage = ((2*1+10)/250 * playerPokemon.getAtk() / playerPokemon.getDef() + 2);
 		opponentPokemon.reduceHp(damage);
 		System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!");
 	}
 	
 	private void opponentAttack() {
-		int damage = calculateDamage(opponentPokemon.getAtk());
+		int damage = ((2*1+10)/250 * opponentPokemon.getAtk() / opponentPokemon.getDef() + 2);
 		playerPokemon.reduceHp(damage);
 		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!");
 	}
-
+	
 	private int calculateDamage(int baseAttack) {
 		// RNG between 80% to 100% of Damage
 		return baseAttack * (80 + rand.nextInt(31)) / 100;
 	}
-	
-	//private void tryCapture() {
-	//	System.out.println("Trying to capture " + opponentPokemon.getNickname() + "...");
-	//	int chance = 50 - opponentPokemon.getHp(); // Lower HP = better chance
-	//	if (rand.nextInt(100) < chance) {
-	//		System.out.println("Gotcha! You caught " + opponentPokemon.getNickname() + "!");
-	//	} else {
-	//		System.out.println(opponentPokemon.getNickname() + " escaped...");
-	//	}
-	//}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Battle [opponentPokemon=%s, playerPokemon=%s]", opponentPokemon, playerPokemon);

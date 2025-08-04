@@ -23,10 +23,33 @@ class Pokeball {
 		return strength;
 	}
 	
+	public static Pokeball getRandomPokeballByOdds() {
+	   // Ranges from 1 to 100, to allow random odds for which pokeball is selected for capturing.
+		int roll = RANDOM.nextInt(100) + 1;
+
+	    if (roll <= 5) { //5 or lower is masterball
+	        return MASTERBALL;
+	    } else if (roll <= 20) { //20 or lower is ultraball
+	        return ULTRABALL;
+	    } else if (roll <= 50) { //50 or lower is greatball
+	        return GREATBALL;
+	    } else {
+	        return POKEBALL; //if nothing hits, then it is pokeball
+	    }
+	}
+	
 	public static boolean attemptCatch(Pokeball pokeball){
 		double catchRoll = RANDOM.nextDouble();
 		boolean caught = catchRoll <= pokeball.getStrength();
 		return  caught;
+	}
+	public static void placeCaughtPokemonInCollection(boolean caught,Pokemon pokemon,Player player){
+		if(caught){
+			player.setCollection(pokemon);
+			System.out.printf("You have caught %s!\n%s has been added to your collection",pokemon.getSpecies(),pokemon.getSpecies());
+		} else {
+			System.out.printf("Your attempt to catch %s has failed!", pokemon.getSpecies());
+		}
 	}
 
 	public String toString() {
