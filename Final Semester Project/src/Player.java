@@ -194,7 +194,8 @@ public class Player {
 		Pokemon finalPokemon = selectedPokemon.get(choice - 1);
 		player.setCollection(finalPokemon);
 
-		// Added Pokémon
+		//INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names 
+		// Added Pokémon for current use
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 		input.close();
 	}
