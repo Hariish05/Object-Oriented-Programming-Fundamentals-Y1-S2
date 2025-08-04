@@ -1,0 +1,11 @@
+Test_Player
+Grass Type Pokemon
+Nickname: Turtwig
+Species: Turtwig
+Health points: 140/140
+Attack: 5
+Defense: 0
+Speed: 0
+Z-Move name: Razor Leaf
+Z-Move base power: 100
+0
