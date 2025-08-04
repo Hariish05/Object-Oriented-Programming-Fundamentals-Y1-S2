@@ -1,4 +1,5 @@
 Test_Player
+<<<<<<< HEAD
 Elekid
 0
 -----
@@ -32,3 +33,15 @@ Squirtle
 Test_Player
 Elekid
 0-----
+=======
+Grass Type Pokemon
+Nickname: Turtwig
+Species: Turtwig
+Health points: 140/140
+Attack: 5
+Defense: 0
+Speed: 0
+Z-Move name: Razor Leaf
+Z-Move base power: 100
+0
+>>>>>>> 5ae612866a807a75198ca96290d798d3ad1b5703
