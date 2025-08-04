@@ -83,70 +83,71 @@ public class Player {
 
 	}
 
-	/*public void loadPlayerInfo(){
-		this.collection = FileManager.loadCollection();
+	/*
+	 * public void loadPlayerInfo(){
+	 * this.collection = FileManager.loadCollection();
+	 * 
+	 * String[] playerInfo = FileManager.loadPlayerInfo();
+	 * if(playerInfo != null){
+	 * this.name = playerInfo[0];
+	 * this.score = Integer.ParseInt(PlayerInfo[1]);
+	 * }
+	 * }
+	 * for later
+	 */
 
-		String[] playerInfo = FileManager.loadPlayerInfo();
-		if(playerInfo != null){
-			this.name = playerInfo[0];
-			this.score = Integer.ParseInt(PlayerInfo[1]);
+	public boolean selectedPokemonforBattle(Scanner scanner) {
+		if (collection.isEmpty()) {
+			System.out.println("No pokemon available");
+			return false;
 		}
-	}
-		for later*/
 
-		public boolean selectedPokemonforBattle(Scanner scanner){
-			if(collection.isEmpty()){ 	
-				System.out.println("No pokemon available");
-				return false;
-			}
-
-			List<Pokemon> availablePokemon = new ArrayList<>(); //creates a list to filter out pokemon thats not defeated 
-			for (Pokemon pokemon : collection){
-				if (!pokemon.isDefeat()){
+		List<Pokemon> availablePokemon = new ArrayList<>(); // creates a list to filter out pokemon thats not defeated
+		for (Pokemon pokemon : collection) {
+			if (!pokemon.isDefeat()) {
 				availablePokemon.add(pokemon);
+			}
+		}
+
+		if (availablePokemon.isEmpty()) {
+			System.out.println("All of your pokemon are defeated");
+			return false;
+		}
+
+		System.out.println("Select your pokemon for battle");
+
+		for (int i = 0; i < availablePokemon.size(); i++) { // display pokemon thats available
+			System.out.println((i + 1) + ". " + availablePokemon.get(i).toString());
+		}
+
+		while (true) {
+			System.out.print("Choose your Pokemon 1-" + availablePokemon.size() + ": ");
+			try {
+				int choice = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choice > 1 && choice <= availablePokemon.size()) {
+					pokemonTeam = availablePokemon.get(choice - 1); // sets pokemon to battle if the correctly input (-1
+																	// is cause before i displayed in 1 2 3 but arryas
+																	// start at 0 index so -1)
+					System.out.println(pokemonTeam.getNickname() + " is ready");
+					return true;
+				} else {
+					System.out.println("Invalid choice");
 				}
+			} catch (Exception e) {
+				System.out.println("Invalid input");
+				scanner.nextLine();
 			}
+		}
 
-			if(availablePokemon.isEmpty()){
-				System.out.println("All of your pokemon are defeated");
-				return false;
-			}
-
-			System.out.println("Select your pokemon for battle");
-
-        	for (int i = 0; i < availablePokemon.size(); i++) { //display pokemon thats available
-            System.out.println((i + 1) + ". " + availablePokemon.get(i).toString());
-        	}
-
-			while(true){
-				System.out.print("Choose your Pokemon 1-" + availablePokemon.size() + ": ");
-				try{
-					int choice = scanner.nextInt();
-					scanner.nextLine();
-
-					if (choice > 1 && choice <= availablePokemon.size()){
-						pokemonTeam = availablePokemon.get(choice - 1); //sets pokemon to battle if the correctly input (-1 is cause before i displayed in 1 2 3 but arryas start at 0 index so -1)
-						System.out.println(pokemonTeam.getNickname() + " is ready");
-						return true;
-					} else{
-						System.out.println("Invalid choice");
-					}
-				} catch(Exception e){
-					System.out.println("Invalid input");
-					scanner.nextLine();
-				}
-			}
-        
-
-    }
-		
-
+	}
 
 	public static void chooseStarter(Player player) {
 		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
 		List<String> names = new ArrayList<>();
 		int count = 1;
-		int choice, tempChoice, lineCount=0;
+		int choice, tempChoice;
 
 		Scanner input = new Scanner(System.in);
 		for (Pokemon i : selectedPokemon) {
@@ -176,18 +177,18 @@ public class Player {
 		}
 		System.out.println("Which pokemon would you like to take as a starter? (Enter 1, 2 or 3): ");
 		while (true) {
-		    try {
-		        tempChoice = input.nextInt();
-		        if (tempChoice <= 0 || tempChoice > 3) {
-		            System.out.println("Invalid number. Try again.");
-		        } else {
-		            choice = tempChoice;
-		            break;
-		        }
-		    } catch (InputMismatchException e) {
-		        System.out.println("Enter a number.");
-		        input.next();
-		    }
+			try {
+				tempChoice = input.nextInt();
+				if (tempChoice <= 0 || tempChoice > 3) {
+					System.out.println("Invalid number. Try again.");
+				} else {
+					choice = tempChoice;
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Enter a number.");
+				input.next();
+			}
 		}
 
 		// '-1' to match index
@@ -195,14 +196,33 @@ public class Player {
 		player.setCollection(finalPokemon);
 		names = FileManager.getCurrentPokemonNameList();
 		String selectedPokemonName = finalPokemon.getSpecies();
-		if (names.contains(selectedPokemonName)){
+		if (names.contains(selectedPokemonName)) {
 			names.remove(selectedPokemonName);
 		}
 
-		//INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names 
+		// INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names
 		// Added Pokémon for current use
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 		input.close();
+	}
+
+	// to store playerData in a list
+	public List<Object> playerData() {
+		List<Object> playerData = new ArrayList<>();
+		playerData.add(name);
+		// to remove [] before and after the collection. it just makes it ncier to look in the array
+		String improvedCollection = collection.toString();
+		if (improvedCollection.length() > 2) {
+			// Remove the first and last character ([ and ])
+			improvedCollection = improvedCollection.substring(1, improvedCollection.length() - 1);
+		} else {
+			// Empty collection, just leave it empty
+			improvedCollection = "";
+		}
+		playerData.add(improvedCollection);
+		playerData.add(score);
+		playerData.add(pokemonTeam);
+		return playerData;
 	}
 
 	public void Catch() {
@@ -210,7 +230,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return String.format("Player [name=%s, collection=%s, score=%s]", name, collection, score);
+		return String.format("Player name: %s, collection: %s, score: %s", name, collection, score);
 	}
 
 	public static Random getRandom() {
