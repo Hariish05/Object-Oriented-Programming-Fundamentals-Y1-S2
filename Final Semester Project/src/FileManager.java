@@ -24,23 +24,21 @@ public class FileManager {
         }
     }
 
-    // textfile for player data
+    // Appends player data to playerData.txt without overwriting old data
     public void playerTextFile(Player player) {
         List<Object> playerDataFile = player.playerData();
-        try {
-            File playerFile = new File("playerData.txt");
-            BufferedWriter playerFileWriter = new BufferedWriter(new FileWriter(playerFile, true));
-            BufferedReader playerFileReader = new BufferedReader(new FileReader(playerFile));
-            if (playerFileReader.readLine() == null) {
-                for (Object i : playerDataFile) {
-                    playerFileWriter.append(i.toString());
-                    playerFileWriter.append("\n");
-                }
-                playerFileWriter.close();
-                playerFileReader.close();
+        File playerFile = new File("playerData.txt");
+        try (BufferedWriter playerFileWriter = new BufferedWriter(new FileWriter(playerFile, true))) {
+            for (Object i : playerDataFile) {
+                playerFileWriter.write(i.toString().trim());
+                playerFileWriter.newLine();
             }
+            // add a separator between players:
+            playerFileWriter.write("-----");
+            playerFileWriter.newLine();
         } catch (Exception e) {
-            System.out.println("An error has occured during file writing.");
+            System.out.println("An error has occurred during file writing.");
+            e.printStackTrace();
         }
     }
 
