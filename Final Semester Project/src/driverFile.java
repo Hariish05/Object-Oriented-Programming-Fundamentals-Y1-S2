@@ -18,9 +18,8 @@ public class driverFile {
         Pokemon wildPokemon = Pokemon.getRandomPokemon();
         System.out.println("\nA wild " + wildPokemon.getSpecies() + " appeared!");
 
-        // Intiate battle
+        // Initiate Battle
         Battle battle = new Battle(wildPokemon, playerPokemon);
         battle.startBattle();
-
     }
 }
