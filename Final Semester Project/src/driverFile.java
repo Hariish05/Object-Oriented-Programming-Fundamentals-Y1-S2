@@ -13,8 +13,15 @@ public class driverFile {
         }
         Player dummy = new Player("Test_Player");
         Player.chooseStarter(dummy);
-        System.out.println(dummy.playerData());
+                System.out.println(dummy.playerData());
         FileManager playerFileManager = new FileManager();
         playerFileManager.playerTextFile(dummy);
+        Pokemon playerPokemon = dummy.getCollection().get(0);
+        Pokemon wildPokemon = Pokemon.getRandomPokemon();
+        System.out.println("\nA wild " + wildPokemon.getSpecies() + " appeared!");
+
+        // Initiate Battle
+        Battle battle = new Battle(wildPokemon, playerPokemon);
+        battle.startBattle();
     }
 }
