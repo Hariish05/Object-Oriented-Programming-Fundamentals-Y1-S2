@@ -170,35 +170,32 @@ public class Player {
 				pokemonType = "Unknown";
 			}
 
-			System.out.printf("%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType,
+			System.out.printf("\n%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType,
 					name, atk, def, speed, ZMove.toString());
 			count++;
 		}
-		System.out.println("Which pokemon would you like to take as a starter? (Enter 1,2 or 3): ");
+		System.out.println("Which pokemon would you like to take as a starter? (Enter 1, 2 or 3): ");
 		while (true) {
-			try {
-				tempChoice = input.nextInt();
-				if (tempChoice <= 0 || tempChoice > 3) {
-				} else {
-					choice = tempChoice;
-					break;
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Enter a number.");
-				input.next();
-			}
+		    try {
+		        tempChoice = input.nextInt();
+		        if (tempChoice <= 0 || tempChoice > 3) {
+		            System.out.println("Invalid number. Try again.");
+		        } else {
+		            choice = tempChoice;
+		            break;
+		        }
+		    } catch (InputMismatchException e) {
+		        System.out.println("Enter a number.");
+		        input.next();
+		    }
 		}
-		input.close();
-		Pokemon finalPokemon = selectedPokemon.get(choice);
-		player.setCollection(finalPokemon);
-		names = FileManager.getCurrentPokemonNameList();
-		String selectedPokemonName = finalPokemon.getSpecies();
-		if (names.contains(selectedPokemonName)){
-			names.remove(selectedPokemonName);
-		}
-		//INCOMPLETE INSERT METHOD TO OVERWRITE allPokemon.txt WITH names 
-		System.out.println("Pokemon has been added to your collection!");
 
+		// '-1' to match index
+		Pokemon finalPokemon = selectedPokemon.get(choice - 1);
+		player.setCollection(finalPokemon);
+
+		// Added Pokémon
+		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 		input.close();
 	}
 
