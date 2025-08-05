@@ -5,6 +5,7 @@ public class Battle {
 	private Pokemon playerPokemon;
 	private Random rand;
 	private boolean zMoveUsed = false;
+	private boolean opponentZMoveUsed = false;
 	private int zMoveAttempts = 0;
 
 	public Battle() {
@@ -18,6 +19,7 @@ public class Battle {
 
 	public void startBattle(Player player) throws InterruptedException {
 		zMoveUsed = false;
+		opponentZMoveUsed = false;
 		zMoveAttempts = 0;
 		int choice = 0, tempChoice = 0;
 
@@ -162,10 +164,19 @@ public class Battle {
 	}
 
 	private void opponentAttack() throws InterruptedException {
-		int damage = calculateDamage(opponentPokemon.getAtk());
-		playerPokemon.reduceHp(damage);
-		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" + " ("
-				+ playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")");
+		if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
+			// Uses ZMove on its first turn
+			int damage = calculateZMoveDamage(opponentPokemon.getZMove());
+			playerPokemon.reduceHp(damage);
+			System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!\n",
+					opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage);
+			opponentZMoveUsed = true;
+		} else {
+			int damage = calculateDamage(opponentPokemon.getAtk());
+			playerPokemon.reduceHp(damage);
+			System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +
+					" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")");
+		}
 		Thread.sleep(1000);
 	}
 
