@@ -76,6 +76,74 @@ public class FileManager {
             return null;
         }
     }
+    public static List<String> getPlayerPokemonFromTxt(){
+        List<Object> playerDataList = readPlayerDataFile();
+        List<String> playerPokemonList = new ArrayList<>();
+        Object temp;
+        int lineCount=0;
+        try {
+            BufferedReader playerDataFileReader1 = new BufferedReader(new FileReader("playerData.txt"));
+            while (playerDataFileReader1.readLine() != null) lineCount++;
+            playerDataFileReader1.close();
+            for (int i = 2;i<lineCount;i++) {
+                temp = playerDataList.get(i);
+                playerPokemonList.add(temp.toString());
+            }
+            while (playerPokemonList.contains("")) playerPokemonList.remove("");
+            System.out.println(playerPokemonList);
+            return playerPokemonList;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public static void addPokemonToPlayerTxt(Pokemon pokemon){
+        String pokemonName = pokemon.getSpecies();
+        List<Object> playerDataList = readPlayerDataFile();
+        List<String> playerPokemonList = getPlayerPokemonFromTxt();
+        int playerDataIndex = playerDataList.size()+1; 
+        int playerPokemonIndex = playerPokemonList.size();
+        String temp;
+        System.out.println(playerDataList);
+        if (playerPokemonIndex >=3) {
+            System.out.println("You cannot store anymore pokemon!");
+        } else{
+            playerDataList.add(pokemonName);
+            try {
+                BufferedWriter playerDataFileWriter = new BufferedWriter(new FileWriter("playerData.txt",false));
+                for (int i =0;i<playerDataIndex;i++){
+                    temp = playerDataList.get(i).toString();
+                    playerDataFileWriter.append(temp);
+                    playerDataFileWriter.newLine();
+                }
+                playerDataFileWriter.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+    public static void removePokemonFromPlayerTxt(Pokemon pokemon){
+        String pokemonName = pokemon.getSpecies();
+        List<Object> playerDataList = readPlayerDataFile();
+        List<String> playerPokemonList = getPlayerPokemonFromTxt();
+        int playerDataIndex = playerDataList.size()-1; 
+        int playerPokemonIndex = playerPokemonList.size();
+        String temp;
+        System.out.println(playerDataList);
+        if (!playerDataList.contains(pokemonName) || playerPokemonIndex ==1) {
+            System.out.println("You dont have that pokemon in your collection!\n Or you only have 1 pokemon in your collection!");
+        } else{
+            playerDataList.remove(pokemonName);
+            try {
+                BufferedWriter playerDataFileWriter = new BufferedWriter(new FileWriter("playerData.txt",false));
+                for (int i =0;i<playerDataIndex;i++){
+                    temp = playerDataList.get(i).toString();
+                    playerDataFileWriter.append(temp);
+                    playerDataFileWriter.newLine();
+                }
+                playerDataFileWriter.close();
+            } catch (Exception e) {
+            }
+        }
+    }
 
     // reads the text file created and pulls the currently avaliable pokemon and
     // puts them into an arraylist

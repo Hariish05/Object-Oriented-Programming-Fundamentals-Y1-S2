@@ -1,3 +1,5 @@
+
+
 public class driverFile {
     public static void main(String[] args) {
         // THIS HAS TO BE DONE AT THE START EVERYTIME
@@ -5,12 +7,12 @@ public class driverFile {
         // TESTS
         Grass.bulbasuar.setHp(Grass.bulbasuar.getMaxHp() - 2);
         System.out.println(Grass.bulbasuar.toString());
-    
-        FileManager.readPlayerDataFile();
-        
+
         Player dummy = new Player("Test_Player");
         Player.chooseStarter(dummy);
         FileManager.createPlayerDataFile(dummy);
+
+        FileManager.removePokemonFromPlayerTxt(Electric.elekid);
 
         Pokemon playerPokemon = dummy.getCollection().get(0);
         Pokemon wildPokemon = Pokemon.getRandomPokemon();
