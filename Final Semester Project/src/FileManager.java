@@ -68,12 +68,69 @@ public class FileManager {
                     playerDataList.add(temp);
                 }
             } else {
-                System.out.println("no value!"); //test output, will be removed in final
                 return null;
             }
             return playerDataList;
         } catch (Exception e) {
             return null;
+        }
+    }
+    public static Player createNewPlayerOrUseExistingOne(){
+        List<Object> playerDataList = readPlayerDataFile();
+        List<String> playerPokemonNameList = getPlayerPokemonFromTxt();
+        Scanner input = new Scanner(System.in);
+        Pokemon pokemon;
+        String playerName;
+        int choice;
+        if (playerDataList ==null || playerDataList.isEmpty()){
+            System.out.println("Since you are a first-time user, you must create an account.\nEnter your player name: ");
+            while (true) { 
+                try {
+                    playerName = input.nextLine();
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Error occured.");
+                }
+            }
+            Player player = new Player(playerName);
+            System.out.println("Account created successfully!\nNow you must pick a starter Pokemon...");
+            Player.chooseStarter(player);
+            System.out.println("You can now get started!");
+            createPlayerDataFile(player);
+            return player;
+        } else{
+            System.out.println("A saved player account has been found!\n Would you like to load the previous players account?\n(1 for YES, 2 for NO)");
+            choice = Battle.getValidatedChoice(1,2);
+            if (choice ==1){
+                playerName = playerDataList.get(0).toString();
+                Player player = new Player(playerName);
+                for (String i: playerPokemonNameList){
+                    pokemon = Pokemon.getPokemonByName(i);
+                    player.setCollection(pokemon);
+                }
+                System.out.println("You can now get started!");
+                return player;
+            } else{
+                try (BufferedWriter playerDataFileWriter = new BufferedWriter(new FileWriter("playerData.txt",false));){
+                } catch (Exception e) {
+
+                }
+                System.out.println("Enter your player name: ");
+                while (true) { 
+                    try {
+                        playerName = input.nextLine();
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Error occured.");
+                    }
+                }
+                Player player = new Player(playerName);
+                System.out.println("Now you must pick your starter Pokemon...");
+                Player.chooseStarter(player);
+                System.out.println("You can now get started!");
+                createPlayerDataFile(player);
+                return player;
+            }
         }
     }
     public static List<String> getPlayerPokemonFromTxt(){
@@ -120,7 +177,7 @@ public class FileManager {
             }
         }
     }
-    public static void removePokemonFromPlayerTxt(Pokemon pokemon){
+    public static void removePokemonFromPlayerTxtAndCollection(Pokemon pokemon){
         String pokemonName = pokemon.getSpecies();
         List<Object> playerDataList = readPlayerDataFile();
         List<String> playerPokemonList = getPlayerPokemonFromTxt();
@@ -139,6 +196,7 @@ public class FileManager {
                     playerDataFileWriter.append(temp);
                     playerDataFileWriter.newLine();
                 }
+                addPokemonToTxt(pokemon);
                 playerDataFileWriter.close();
             } catch (Exception e) {
             }

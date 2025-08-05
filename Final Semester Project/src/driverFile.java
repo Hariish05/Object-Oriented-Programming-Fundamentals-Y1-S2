@@ -3,7 +3,7 @@
 public class driverFile {
     public static void main(String[] args) {
         // THIS HAS TO BE DONE AT THE START EVERYTIME
-        FileManager.createAllPokemonTxt();
+        /*FileManager.createAllPokemonTxt();
         // TESTS
         Grass.bulbasuar.setHp(Grass.bulbasuar.getMaxHp() - 2);
         System.out.println(Grass.bulbasuar.toString());
@@ -22,6 +22,6 @@ public class driverFile {
         try {
             battle.startBattle(dummy);
         } catch (Exception e) {
-        }
+        }*/
     }
 }

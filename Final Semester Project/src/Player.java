@@ -35,6 +35,9 @@ public class Player {
 	public List<Pokemon> getCollection() {
 		return collection;
 	}
+	public void removeFromCollection(String pokemon){
+		collection.remove(Pokemon.getPokemonByName(pokemon));
+	}
 
 	/*
 	 * public void setCollection(Pokemon collection) {
@@ -198,26 +201,7 @@ public class Player {
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 	}
 
-	// to store playerData in a list (being reworked)
-	/*public List<Object> playerData() {
-		List<Object> playerData = new ArrayList<>();
-		playerData.add(name);
-		// to remove [] before and after the collection. it just makes it ncier to look in the array
-		String improvedCollection = collection.toString();
-		if (improvedCollection.length() > 2) {
-			// Remove the first and last character ([ and ])
-			improvedCollection = improvedCollection.substring(1, improvedCollection.length() - 1);
-		} else {
-			// Empty collection, just leave it empty
-			improvedCollection = "";
-		}
-		playerData.add(improvedCollection);
-		playerData.add(score);
-		// playerData.add(pokemonTeam);
-		return playerData;
-	}*/
-
-	public void catchWildPokemon(Player player) {
+	public static void catchWildPokemon(Player player) {
 		if (player.getCollection().size() >=3){
 			System.out.println("You do not have space to store anymore Pokemons!");
 		}else{
@@ -242,7 +226,7 @@ public class Player {
 				} else if (temp == Fire.class) {
 					pokemonType = "Fire";
 				} else {
-					pokemonType = "Unknown";
+					pokemonType = "Normal";
 				}
 
 				System.out.printf("\n%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType, name, atk, def, speed, ZMove.toString());

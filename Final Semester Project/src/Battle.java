@@ -139,7 +139,7 @@ public class Battle {
 		Thread.sleep(1000);
 	}
 
-	private int getValidatedChoice(int min, int max) {
+	public static int getValidatedChoice(int min, int max) {
 		Scanner input = new Scanner(System.in);
 		int choice = 0;
 		while (true) {
@@ -189,6 +189,28 @@ public class Battle {
 		double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
 		int ZMoveDamage = move.getBasePower();
 		return (int) (ZMoveDamage * effectiveness / 18);
+	}
+	public static Pokemon playerSelectPokemonFromCollection(Player player) {
+		Pokemon playerPokemon;
+		List<Pokemon> playerPokemons = player.getCollection();
+		String name,ZMoveName;
+		int choice,atk,def,ZMoveAtk,count=1;
+
+		for(Pokemon i:playerPokemons){
+			name = i.getSpecies();
+			ZMoveName = i.getZMove().getName();
+			ZMoveAtk = i.getZMove().getBasePower();
+			atk = i.getAtk();
+			def=i.getDef();
+			System.out.printf("%d.\nName: %s\nAttack: %d\nDefense: %d\nZMove Name: %s\nZMove Attack: %d",count,name,atk,def,ZMoveName,ZMoveAtk);
+			count++;
+		}
+		count--;
+		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",count);
+		choice = getValidatedChoice(1, count);
+		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
+		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
+		return playerPokemon;
 	}
 
 	@Override

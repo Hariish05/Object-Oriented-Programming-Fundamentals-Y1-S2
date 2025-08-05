@@ -48,6 +48,7 @@ class Pokeball {
 			player.setCollection(pokemon);
 			System.out.printf("\nYou have caught %s!\n%s has been added to your collection!",pokemon.getSpecies(),pokemon.getSpecies());
 			FileManager.removePokemonFromTxt(pokemon);
+			FileManager.addPokemonToPlayerTxt(pokemon);
 
 		} else {
 			System.out.printf("\nYour attempt to catch %s has failed!", pokemon.getSpecies());
