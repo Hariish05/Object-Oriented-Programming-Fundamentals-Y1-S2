@@ -95,13 +95,13 @@ public class Battle {
 	private void playerAttack() {
 		int damage = calculateDamage((2*1+10)/250 * playerPokemon.getAtk() / playerPokemon.getDef() + 2);
 		opponentPokemon.reduceHp(damage);
-		System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!");
+		System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" +  " (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")");
 	}
 	
 	private void opponentAttack() {
 		int damage = calculateDamage((2*1+10)/250 * opponentPokemon.getAtk() / opponentPokemon.getDef() + 2);
 		playerPokemon.reduceHp(damage);
-		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!");
+		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +  " (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")");
 	}
 	
 	private int calculateDamage(int baseAttack) {
