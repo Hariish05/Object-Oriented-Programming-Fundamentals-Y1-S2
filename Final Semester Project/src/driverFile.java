@@ -19,6 +19,9 @@ public class driverFile {
 
         // Initiate Battle
         Battle battle = new Battle(wildPokemon, playerPokemon);
-        battle.startBattle(dummy);
+        try {
+            battle.startBattle(dummy);
+        } catch (Exception e) {
+        }
     }
 }
