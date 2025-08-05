@@ -16,12 +16,13 @@ public class Battle {
 		this.rand = new Random();
 	}
 
-	public void startBattle(Player player) {
+	public void startBattle(Player player) throws InterruptedException {
 		zMoveUsed = false;
 		zMoveAttempts = 0;
 		int choice = 0, tempChoice = 0;
 
 		System.out.println("A wild " + opponentPokemon.getNickname() + " appeared!");
+		Thread.sleep(1000);
 
 		// Randomize who goes first based on speed and some luck
 		boolean playerTurn = determineFirstTurn();
@@ -39,6 +40,7 @@ public class Battle {
 			System.out.println("You lost the battle...");
 		} else {
 			System.out.println("You defeated " + opponentPokemon.getNickname() + "!");
+			Thread.sleep(1000);
 			if (player.getCollection().size() >= 3) {
 				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(",
 						opponentPokemon.getSpecies());
@@ -70,24 +72,27 @@ public class Battle {
 		}
 	}
 
-	private void tryCapture(Player player) {
+	private void tryCapture(Player player) throws InterruptedException {
 		if (opponentPokemon.getHp() > 0) {
 			System.out.println("You can only catch a Pokémon after it's fainted!");
 			return;
 		}
 		System.out.println("A random Pokeball will be picked for you...");
+		Thread.sleep(1000);
 		Pokeball pokeball = Pokeball.getRandomPokeballByOdds();
 		System.out.printf("You will attempt to catch %s with a %s...", opponentPokemon.getSpecies(),
 				pokeball.getBallName());
+		Thread.sleep(1000);
 
 		boolean caught = Pokeball.attemptCatch(pokeball);
 		Pokeball.placeCaughtPokemonInCollection(caught, opponentPokemon, player);
 	}
 
-	private boolean determineFirstTurn() {
+	private boolean determineFirstTurn() throws InterruptedException{
 		int playerRoll = playerPokemon.getSpeed() + rand.nextInt(10);
 		int opponentRoll = opponentPokemon.getSpeed() + rand.nextInt(10);
 		System.out.println("Determining turn order...");
+		Thread.sleep(1000);
 		return playerRoll >= opponentRoll;
 	}
 
@@ -99,7 +104,7 @@ public class Battle {
 		this.playerPokemon = playerpokemon;
 	}
 
-	private void playerAttack() {
+	private void playerAttack() throws InterruptedException{
 		if (!zMoveUsed && zMoveAttempts < 3) {
 			int[] chances = { 75, 90, 100 };
 			System.out.printf("Do you want to use a Z-Move? (1 for YES, 2 for NO) Current odds: %d%%\n",
@@ -113,11 +118,13 @@ public class Battle {
 					opponentPokemon.reduceHp(damage);
 					System.out.printf("You used Z-Move %s! It hit and dealt %d damage!\n",
 							playerPokemon.getZMove().getName(), damage);
+					Thread.sleep(1000);
 					zMoveUsed = true;
 					return;
 				} else {
 					System.out.println("Z-Move missed! You'll get another chance next turn.");
 					zMoveAttempts++;
+					Thread.sleep(1000);
 				}
 			}
 		}
@@ -127,6 +134,7 @@ public class Battle {
 		opponentPokemon.reduceHp(damage);
 		System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" +
 				" (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")");
+		Thread.sleep(1000);
 	}
 
 	private int getValidatedChoice(int min, int max) {
@@ -153,11 +161,12 @@ public class Battle {
 		return roll <= chances[zMoveAttempts];
 	}
 
-	private void opponentAttack() {
+	private void opponentAttack() throws InterruptedException {
 		int damage = calculateDamage(opponentPokemon.getAtk());
 		playerPokemon.reduceHp(damage);
 		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" + " ("
 				+ playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")");
+		Thread.sleep(1000);
 	}
 
 	private int calculateDamage(int baseAttack) {
