@@ -105,7 +105,101 @@ public class Player {
 		}
 
 	}
-// NEEDS IF STATEMENT TO PREVENT EXISTING PLAYER FROM SELECTING A STARTER EVERYTIME
+
+		// NEEDS IF STATEMENT TO PREVENT EXISTING PLAYER FROM SELECTING A STARTER EVERYTIME
+	public static void chooseStarter(Player player) {
+		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
+		List<String> names = new ArrayList<>();
+		String name,ZMoveName;
+		int choice,atk,def,speed,ZMoveAtk,tempChoice,count=1;
+		int total = 3;
+		int totalRows = 3;
+		String pokemonType;
+
+		Scanner input = new Scanner(System.in);
+
+		for (int i = 0; i < total; i++) {
+	        System.out.printf("%-40s", (i + 1) + ".");
+		}
+		System.out.println();
+
+		for (int i = 0; i < total; i++) {
+        	Pokemon p = selectedPokemon.get(i);
+        	String type;
+        	Class<?> temp = p.getClass();
+			if (temp == Water.class) {
+				pokemonType = "Water";
+			} else if (temp == Electric.class) {
+				pokemonType = "Electric";
+			} else if (temp == Grass.class) {
+				pokemonType = "Grass";
+			} else if (temp == Fire.class) {
+				pokemonType = "Fire";
+			} else {
+				pokemonType = "Normal";
+			}
+			System.out.printf("%-40s", "Type: " + pokemonType);
+    		}
+
+    		System.out.println();
+
+	    	for (int i = 0; i < totalRows; i++) {
+	        	System.out.printf("%-40s", "Name: " + selectedPokemon.get(i).getSpecies());
+	        }
+			System.out.println();
+			
+		    for(int i = 0; i< totalRows; i++) {
+		    	System.out.printf("%-40s", "Attack: " + selectedPokemon.get(i).getAtk());      	
+    	    }
+		    System.out.println();
+	        
+		    for(int i = 0; i< totalRows; i++) {
+    			System.out.printf("%-40s", "Defence: " + selectedPokemon.get(i).getDef());      	
+    	    }
+		    System.out.println();
+
+    	    for(int i = 0; i< totalRows; i++) {
+    			System.out.printf("%-40s", "Speed: " + selectedPokemon.get(i).getSpeed());      	
+    	    }
+    	    System.out.println();
+	        
+	        for(int i = 0; i< totalRows; i++) {
+     		   	System.out.printf("%-40s", "ZMove Name: " + selectedPokemon.get(i).getZMove().getName());      	
+     	    }
+     	   System.out.println();     
+
+			for(int i = 0; i< totalRows; i++) {
+    			System.out.printf("%-40s", "ZMove Attack: " + selectedPokemon.get(i).getZMove().getBasePower());      	
+        	}
+			System.out.println("\n");   
+			count++;
+
+			System.out.println("Which pokemon would you like to take as a starter? (Enter 1, 2 or 3): ");
+			while (true) {
+
+				try {
+					tempChoice = input.nextInt();
+					if (tempChoice <= 0 || tempChoice > 3) {
+						System.out.println("Invalid number. Try again.");
+					} else {
+						choice = tempChoice;
+						break;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Enter a number.");
+					input.next();
+				}
+			}
+
+			// '-1' to match index
+			Pokemon finalPokemon = selectedPokemon.get(choice - 1);
+			player.setCollection(finalPokemon);
+			FileManager.removePokemonFromTxt(finalPokemon);
+			System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
+	}
+
+/* 
+	// NEEDS IF STATEMENT TO PREVENT EXISTING PLAYER FROM SELECTING A STARTER EVERYTIME
 	public static void chooseStarter(Player player) {
 		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
 		List<String> names = new ArrayList<>();
@@ -160,7 +254,7 @@ public class Player {
 		FileManager.removePokemonFromTxt(finalPokemon);
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 	}
-
+*/
 
 
 	public static void catchWildPokemon(Player player) {
