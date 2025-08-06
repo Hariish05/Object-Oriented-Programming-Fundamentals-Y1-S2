@@ -27,7 +27,7 @@ public class MainMenu {
                 System.out.printf("%s's Collection:\n",player.getName());
                 System.out.println(FileManager.getPlayerPokemonFromTxt());
                     break;
-                case 4: //incomplete 
+                case 4:
                     FileManager.displayBattleScores();
                     int highestScore = FileManager.getHighestScore();
                     System.out.println("The highest score in the past 5 battle is "+highestScore+"!");
