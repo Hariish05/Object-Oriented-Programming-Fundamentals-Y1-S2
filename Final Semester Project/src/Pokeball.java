@@ -43,19 +43,16 @@ class Pokeball {
 		boolean caught = catchRoll <= pokeball.getStrength();
 		return  caught;
 	}
-	public static void placeCaughtPokemonInCollection(boolean caught,Pokemon pokemon,Player player) throws InterruptedException{
+	public static void placeCaughtPokemonInCollection(boolean caught,Pokemon pokemon,Player player){
 		if(caught){
 			player.setCollection(pokemon);
 			System.out.printf("\nYou have caught %s!\n", pokemon.getSpecies());
-			Thread.sleep(1000);
 			System.out.printf("%s has been added to your collection!\n",pokemon.getSpecies());
-			Thread.sleep(2000);
 			FileManager.removePokemonFromTxt(pokemon);
 			FileManager.addPokemonToPlayerTxt(pokemon);
-
 		} else {
 			System.out.printf("\nYour attempt to catch %s has failed!\n", pokemon.getSpecies());
-			Thread.sleep(2000);
+
 		}
 	}
 
