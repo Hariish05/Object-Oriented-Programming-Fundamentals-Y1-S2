@@ -22,6 +22,7 @@ public class Battle {
 		opponentZMoveUsed = false;
 		zMoveAttempts = 0;
 		int choice = 0, tempChoice = 0;
+		Pokemon.restoreAllPokemonHp();
 
 		System.out.println("A wild " + opponentPokemon.getNickname() + " appeared!");
 		Thread.sleep(1000);
@@ -40,10 +41,8 @@ public class Battle {
 
 		if (playerPokemon.getHp() <= 0) {
 			System.out.println("You lost the battle...");
-			Pokemon.restoreAllPokemonHp();
 		} else {
 			System.out.println("You defeated " + opponentPokemon.getNickname() + "!");
-			Pokemon.restoreAllPokemonHp();
 			Thread.sleep(1000);
 			if (player.getCollection().size() >= 3) {
 				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(",
