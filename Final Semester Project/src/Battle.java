@@ -189,7 +189,7 @@ public class Battle {
 	private int calculateZMoveDamage(ZMoves move) {
 		double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
 		int ZMoveDamage = move.getBasePower();
-		return (int) (ZMoveDamage * effectiveness / 18);
+		return (int) ((ZMoveDamage/rand.nextInt(9,66))  * effectiveness);
 	}
 
 
