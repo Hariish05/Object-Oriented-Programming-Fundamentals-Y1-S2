@@ -56,6 +56,7 @@ public class Battle {
 						tempChoice = input.nextInt();
 						if (tempChoice <= 0 || tempChoice > 2) {
 							System.out.println("Invalid number. Try again.");
+							Thread.sleep(1000);
 						} else {
 							choice = tempChoice;
 							break;
@@ -69,6 +70,7 @@ public class Battle {
 					tryCapture(player);
 				} else {
 					System.out.println(opponentPokemon.getNickname() + " has escaped!");
+					Thread.sleep(2000);
 				}
 
 			}
@@ -279,8 +281,6 @@ public class Battle {
 		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
 		return playerPokemon;
 	}*/
-
-
 
 	@Override
 	public String toString() {
