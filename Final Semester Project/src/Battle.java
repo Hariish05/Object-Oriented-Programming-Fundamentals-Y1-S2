@@ -146,15 +146,36 @@ public class Battle {
 	}
 
 	// If ZMove fails
-	int damage = calculateDamage(playerPokemon.getAtk());
-	opponentPokemon.reduceHp(damage);
 	double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
+	int damage = calculateDamage(playerPokemon.getAtk(), opponentPokemon.getDef(), effectiveness);
+	opponentPokemon.reduceHp(damage);
 	String effectivenessMsg = getEffectivenessText(effectiveness);
-	System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" +" (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")" + effectivenessMsg);
+	System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" + effectivenessMsg + " (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")");
 	Thread.sleep(1000);
 	score += calculateScore(damage,false,0);
 		return score;
 	}
+
+	private void opponentAttack() throws InterruptedException {
+	if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
+		int damage = calculateZMoveDamage(opponentPokemon.getZMove());
+		playerPokemon.reduceHp(damage);
+		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
+		String effectivenessMsg = getEffectivenessText(effectiveness);
+		System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!%s\n",
+			opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage, effectivenessMsg);
+
+		opponentZMoveUsed = true;
+	} else {
+		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
+		int damage = calculateDamage(opponentPokemon.getAtk(), playerPokemon.getDef(), effectiveness);
+		playerPokemon.reduceHp(damage);
+		String effectivenessMsg = getEffectivenessText(effectiveness);
+		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +
+		" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")" + effectivenessMsg);
+	}
+	Thread.sleep(1000);
+}
 
 	public static int calculateScore(int damage,boolean zMove, int zMoveDamage){
 		int score=0;
@@ -195,31 +216,13 @@ public class Battle {
 		return roll <= chances[zMoveAttempts];
 	}
 
-	private void opponentAttack() throws InterruptedException {
-	if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
-		int damage = calculateZMoveDamage(opponentPokemon.getZMove());
-		playerPokemon.reduceHp(damage);
-		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
-		String effectivenessMsg = getEffectivenessText(effectiveness);
-		System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!%s\n",
-			opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage, effectivenessMsg);
-
-		opponentZMoveUsed = true;
-	} else {
-		int damage = calculateDamage(opponentPokemon.getAtk());
-		playerPokemon.reduceHp(damage);
-		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
-		String effectivenessMsg = getEffectivenessText(effectiveness);
-
-		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +
-		" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")" + effectivenessMsg);
-	}
-	Thread.sleep(1000);
-}
-
-	private int calculateDamage(int baseAttack) {
-		// RNG between 20% to 70% of Damage
-		return baseAttack * (10 + rand.nextInt(51)) / 100;
+	private int calculateDamage(int attackerAtk, int defenderDef, double effectiveness) {
+		int power = 10;
+		double random = 0.85 + rand.nextDouble() * 0.15;
+		if (defenderDef < 1) defenderDef = 1;
+		double baseDamage = ((attackerAtk * power) / (double) defenderDef);
+		double totalDamage = baseDamage * random * effectiveness;
+		return Math.max(1, (int) totalDamage);
 	}
 
 	private int calculateZMoveDamage(ZMoves move) {
@@ -297,7 +300,7 @@ public class Battle {
 	} else if (effectiveness < 1.0) {
 		return " It's not very effective...";
 	}
-	return ""; 
+	return ""; // Neutral effectiveness
 }
 
 	@Override
