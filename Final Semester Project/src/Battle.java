@@ -253,8 +253,8 @@ public class Battle {
 
 		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",total);
 		choice = getValidatedChoice(1, total);
-		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
-		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
+		System.out.printf("\nYou will fight alongside %s!\n", playerPokemons.get(choice - 1).getSpecies());
+		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(choice - 1).getSpecies());
 		return playerPokemon;
 	}
 
