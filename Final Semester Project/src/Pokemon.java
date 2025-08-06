@@ -85,11 +85,11 @@ abstract class Pokemon {
 		} else if (attackerType == Water.class && defenderType == Fire.class){
 			return 2.0;
 		} else if(attackerType == Water.class && defenderType == Water.class){
-			return 0.5;
+			return 1.0;
 		} else if(attackerType == Water.class && defenderType == Electric.class){
 			return 1.0;
 		} else if (attackerType == Fire.class && defenderType == Fire.class){
-        	return 0.5;
+        	return 1.0;
     	} else if (attackerType == Fire.class && defenderType == Water.class){
         	return 0.5;
     	} else if (attackerType == Fire.class && defenderType == Grass.class){
@@ -101,7 +101,7 @@ abstract class Pokemon {
 		} else if (attackerType == Grass.class && defenderType == Water.class){
 			return 2.0;
 		} else if (attackerType == Grass.class && defenderType == Grass.class){
-			return 0.5;
+			return 1.0;
 		} else if (attackerType == Grass.class && defenderType == Electric.class){
 			return 1.0;
 		}else if (attackerType == Electric.class && defenderType == Fire.class){
@@ -111,7 +111,7 @@ abstract class Pokemon {
 		} else if (attackerType == Electric.class && defenderType == Grass.class){
 			return 1.0;
 		} else if (attackerType == Electric.class && defenderType == Electric.class){
-			return 0.5;
+			return 1.0;
 		} else {
 			return 1.0;
 		}
