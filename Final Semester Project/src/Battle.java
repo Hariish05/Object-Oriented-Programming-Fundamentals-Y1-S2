@@ -205,43 +205,50 @@ public class Battle {
 	    for (int i = 0; i < total; i = i + totalRows) {
 
 	        for (int j = 0; j < totalRows; j++) {
-	                System.out.printf("%-40s", (i + j + 1) + ".");
+				if (i + j < total)
+	            System.out.printf("%-40s", (i + j + 1) + ".");
 	        } 
 	        System.out.println();
 	        
 	        for (int j = 0; j < totalRows; j++) {
+				if (i + j < total)
 	            System.out.printf("%-40s", "Name: " + playerPokemons.get(i + j).getSpecies());
 	        }
 	        System.out.println();
 	        
 	        for(int j = 0; j< totalRows; j++) {
+				if (i + j < total)
 	        	System.out.printf("%-40s", "Attack: " + playerPokemons.get(i+j).getAtk());      	
 	        }
 	        System.out.println();
 	        
 	        for(int j = 0; j< totalRows; j++) {
+				if (i + j < total)
         		System.out.printf("%-40s", "Defence: " + playerPokemons.get(i+j).getDef());      	
 	        }
 	        System.out.println();
 
 	        for(int j = 0; j< totalRows; j++) {
+				if (i + j < total)
         		System.out.printf("%-40s", "Speed: " + playerPokemons.get(i+j).getSpeed());      	
 	        }
 	        System.out.println();
 	        
 	        for(int j = 0; j< totalRows; j++) {
+				if (i + j < total)
 	        	System.out.printf("%-40s", "ZMove Name: " + playerPokemons.get(i+j).getZMove().getName());      	
 	        }
 	        System.out.println();     
 
 	        for(int j = 0; j< totalRows; j++) {
+				if (i + j < total)
         		System.out.printf("%-40s", "ZMove Attack: " + playerPokemons.get(i+j).getZMove().getBasePower());      	
 	        }
 	        System.out.println("\n");    
 
 	    }
 
-		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",count);
+		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",total);
 		choice = getValidatedChoice(1, total);
 		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
 		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());

@@ -51,7 +51,7 @@ class Pokeball {
 			FileManager.addPokemonToPlayerTxt(pokemon);
 
 		} else {
-			System.out.printf("\nYour attempt to catch %s has failed!", pokemon.getSpecies());
+			System.out.printf("\nYour attempt to catch %s has failed!\n", pokemon.getSpecies());
 		}
 	}
 
