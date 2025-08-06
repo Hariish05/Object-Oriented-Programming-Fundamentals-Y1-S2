@@ -20,7 +20,6 @@ public class Battle {
 	}
 
 	public void startBattle(Player player) throws InterruptedException {
-		Pokemon.restoreAllPokemonHp();
 		zMoveUsed = false;
 		opponentZMoveUsed = false;
 		zMoveAttempts = 0;
@@ -112,41 +111,48 @@ public class Battle {
 	}
 
 	private int playerAttack() throws InterruptedException{
-		int score=0;
-		if (!zMoveUsed && zMoveAttempts < 3) {
-			int[] chances = { 75, 90, 100 };
-			System.out.printf("Do you want to use a Z-Move? (1 for YES, 2 for NO) Current odds: %d%%\n",
-					chances[zMoveAttempts]);
-			int choice = getValidatedChoice(1, 2);
+	int score=0;
+	if (!zMoveUsed && zMoveAttempts < 3) {
+		int[] chances = { 75, 90, 100 };
+		System.out.printf("Do you want to use a Z-Move? (1 for YES, 2 for NO) Current odds: %d%%\n",
+				chances[zMoveAttempts]);
+		int choice = getValidatedChoice(1, 2);
 
-			if (choice == 1) {
-				boolean hit = attemptZMoveHit();
-				if (hit) {
-					int damage = calculateZMoveDamage(playerPokemon.getZMove());
-					opponentPokemon.reduceHp(damage);
-					System.out.printf("You used Z-Move %s! It hit and dealt %d damage!\n",
-							playerPokemon.getZMove().getName(), damage);
-					Thread.sleep(1000);
-					zMoveUsed = true;
-					score = calculateScore(0,hit,damage);
-					return score;
-				} else {
-					int damage =0;
-					System.out.println("Z-Move missed! You'll get another chance next turn.");
-					zMoveAttempts++;
-					Thread.sleep(1000);
-					score = calculateScore(0,hit,damage);
-				}
+		if (choice == 1) {
+			boolean hit = attemptZMoveHit();
+			if (hit) {
+				int damage = calculateZMoveDamage(playerPokemon.getZMove());
+				opponentPokemon.reduceHp(damage);
+				
+				// Show effectiveness message
+				double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
+				String effectivenessMsg = getEffectivenessText(effectiveness);
+
+				System.out.printf("You used Z-Move %s! It hit and dealt %d damage!%s\n",
+					playerPokemon.getZMove().getName(), damage, effectivenessMsg);
+
+				Thread.sleep(1000);
+				zMoveUsed = true;
+				score = calculateScore(0,hit,damage);
+				return score;
+			} else {
+				int damage = 0;
+				System.out.println("Z-Move missed! You'll get another chance next turn.");
+				zMoveAttempts++;
+				Thread.sleep(1000);
+				score = calculateScore(0,hit,damage);
 			}
 		}
+	}
 
-		// If ZMove fails
-		int damage = calculateDamage(playerPokemon.getAtk());
-		opponentPokemon.reduceHp(damage);
-		System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" +
-				" (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")");
-		Thread.sleep(1000);
-		score += calculateScore(damage,false,0);
+	// If ZMove fails
+	int damage = calculateDamage(playerPokemon.getAtk());
+	opponentPokemon.reduceHp(damage);
+	double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
+	String effectivenessMsg = getEffectivenessText(effectiveness);
+	System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" +" (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")" + effectivenessMsg);
+	Thread.sleep(1000);
+	score += calculateScore(damage,false,0);
 		return score;
 	}
 
@@ -163,7 +169,7 @@ public class Battle {
 			score += 20; 
 		}
 		return score;
-	}
+}
 
 	public static int getValidatedChoice(int min, int max) {
 		Scanner input = new Scanner(System.in);
@@ -190,21 +196,26 @@ public class Battle {
 	}
 
 	private void opponentAttack() throws InterruptedException {
-		if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
-			// Uses ZMove on its first turn
-			int damage = calculateZMoveDamage(opponentPokemon.getZMove());
-			playerPokemon.reduceHp(damage);
-			System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!\n",
-					opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage);
-			opponentZMoveUsed = true;
-		} else {
-			int damage = calculateDamage(opponentPokemon.getAtk());
-			playerPokemon.reduceHp(damage);
-			System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +
-					" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")");
-		}
-		Thread.sleep(1000);
+	if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
+		int damage = calculateZMoveDamage(opponentPokemon.getZMove());
+		playerPokemon.reduceHp(damage);
+		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
+		String effectivenessMsg = getEffectivenessText(effectiveness);
+		System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!%s\n",
+			opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage, effectivenessMsg);
+
+		opponentZMoveUsed = true;
+	} else {
+		int damage = calculateDamage(opponentPokemon.getAtk());
+		playerPokemon.reduceHp(damage);
+		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
+		String effectivenessMsg = getEffectivenessText(effectiveness);
+
+		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +
+		" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")" + effectivenessMsg);
 	}
+	Thread.sleep(1000);
+}
 
 	private int calculateDamage(int baseAttack) {
 		// RNG between 20% to 70% of Damage
@@ -280,28 +291,14 @@ public class Battle {
 		return playerPokemon;
 	}
 
-	/*public static Pokemon playerSelectPokemonFromCollection(Player player) {
-		Pokemon playerPokemon;
-		List<Pokemon> playerPokemons = player.getCollection();
-		String name,ZMoveName;
-		int choice,atk,def,ZMoveAtk,count=1;
-
-		for(Pokemon i:playerPokemons){
-			name = i.getSpecies();
-			ZMoveName = i.getZMove().getName();
-			ZMoveAtk = i.getZMove().getBasePower();
-			atk = i.getAtk();
-			def=i.getDef();
-			System.out.printf("\n%d.\nName: %s\nAttack: %d\nDefense: %d\nZMove Name: %s\nZMove Attack: %d",count,name,atk,def,ZMoveName,ZMoveAtk);
-			count++;
-		}
-		count--;
-		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",count);
-		choice = getValidatedChoice(1, count);
-		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
-		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
-		return playerPokemon;
-	}*/
+	private String getEffectivenessText(double effectiveness) {
+	if (effectiveness > 1.0) {
+		return " It's super effective!";
+	} else if (effectiveness < 1.0) {
+		return " It's not very effective...";
+	}
+	return ""; 
+}
 
 	@Override
 	public String toString() {
