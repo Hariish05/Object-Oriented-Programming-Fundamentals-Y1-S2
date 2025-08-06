@@ -121,7 +121,7 @@ public class Battle {
 		if (choice == 1) {
 			boolean hit = attemptZMoveHit();
 			if (hit) {
-				int damage = calculateZMoveDamage(playerPokemon.getZMove());
+				int damage = calculateZMoveDamage(playerPokemon.getZMove(), playerPokemon, opponentPokemon);
 				opponentPokemon.reduceHp(damage);
 				
 				// Show effectiveness message
@@ -158,7 +158,7 @@ public class Battle {
 
 	private void opponentAttack() throws InterruptedException {
 	if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
-		int damage = calculateZMoveDamage(opponentPokemon.getZMove());
+		int damage = calculateZMoveDamage(opponentPokemon.getZMove(), opponentPokemon, playerPokemon);
 		playerPokemon.reduceHp(damage);
 		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
 		String effectivenessMsg = getEffectivenessText(effectiveness);
@@ -225,10 +225,24 @@ public class Battle {
 		return Math.max(1, (int) totalDamage);
 	}
 
-	private int calculateZMoveDamage(ZMoves move) {
-		double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
-		int ZMoveDamage = move.getBasePower();
-		return (int) (ZMoveDamage * effectiveness / 6);
+	private int calculateZMoveDamage(ZMoves move, Pokemon attacker, Pokemon defender) {
+		double effectiveness = Pokemon.getTypeEffectiveness(attacker, defender);
+		double random = 0.9 + rand.nextDouble() * 0.2; // Random factor between 0.9 to 1.1
+
+		int basePower = move.getBasePower();
+
+		double baseDamage = 30;
+
+		if (effectiveness > 1.0) {
+			baseDamage = 50; 
+		} else if (effectiveness < 1.0) {
+			baseDamage = 20; 
+		}
+
+		// Apply randomness
+		double finalDamage = baseDamage * random;
+
+		return (int) finalDamage;
 	}
 
 	public static Pokemon playerSelectPokemonFromCollection(Player player) {
