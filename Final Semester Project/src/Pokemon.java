@@ -29,14 +29,8 @@ abstract class Pokemon {
 	public String getNickname() {
 		return nickname;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 	public boolean isDefeat() {
 		return defeat;
-	}
-	public void setDefeat(boolean defeat) {
-		this.defeat = defeat;
 	}
 	public int getLevel() {
 		return level;
