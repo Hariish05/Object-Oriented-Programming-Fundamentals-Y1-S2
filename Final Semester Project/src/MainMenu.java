@@ -38,18 +38,21 @@ public class MainMenu {
                 case 6:
                     List<String> playerPokemons = FileManager.getPlayerPokemonFromTxt();
                     int count=1,releaseChoice;
-                    System.out.printf("%s's Collection",player.getName());
-                    for (String i: playerPokemons){
-                        System.out.printf("%d.\n%s\n",count,i);
+                    System.out.printf("%s's Collection:\n\n", player.getName());
+                    for (String i : playerPokemons) {
+                        System.out.printf("%d.\n%s\n", count, i);
                         count++;
                     }
-                    System.out.printf("Which Pokemon would you like to relaase back into the wild? (1-%d): ",count-1);
-                    releaseChoice = Battle.getValidatedChoice(1, count-1);
-                    boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(Pokemon.getPokemonByName(playerPokemons.get(releaseChoice-1)));
-                    if (removed){
-                        player.removeFromCollection(playerPokemons.get(releaseChoice-1));
-                    } else {
+                    System.out.printf("\nWhich Pokemon would you like to release back into the wild? (1-%d): ", count - 1);
 
+                    releaseChoice = Battle.getValidatedChoice(1, count-1);
+                    String releasedPokemonName = playerPokemons.get(releaseChoice - 1);
+                    Pokemon releasedPokemon = Pokemon.getPokemonByName(releasedPokemonName);
+                    boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(releasedPokemon);
+                    if (removed) {
+                        player.removeFromCollection(releasedPokemonName);
+                        System.out.printf("%s has been released back into the wild.\n", releasedPokemonName);
+                    } else {
                     }
                     break;
                 case 7:

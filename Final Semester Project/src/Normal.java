@@ -10,7 +10,7 @@ public class Normal extends Pokemon{
     //Normal Pokemon object creation
     public static Pokemon pidgey = new Normal("Pidgey",45,40,56,"Pidgey",40, ZMoves.BREAKNECK_BLITZ_PIDGEY);
     public static Pokemon eevee = new Normal("Eevee",55,50,55,"Eevee",55, ZMoves.EXTREME_EVOBOOST);
-    public static Pokemon munchlax = new Normal("Munchlax",85,40,5,"Munchlax",135, ZMoves.PULVERIZING_PANCAKE);
+    public static Pokemon munchlax = new Normal("Munchlax",48,45,25,"Munchlax",51, ZMoves.PULVERIZING_PANCAKE);
 
     public static List<Pokemon> getAllNormalPokemon(){
         return Arrays.asList(pidgey,eevee,munchlax);

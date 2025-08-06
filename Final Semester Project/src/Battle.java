@@ -25,6 +25,7 @@ public class Battle {
 		opponentZMoveUsed = false;
 		zMoveAttempts = 0;
 		int choice = 0, tempChoice = 0, score = 0;
+		Pokemon.restoreAllPokemonHp();
 
 		System.out.println("A wild " + opponentPokemon.getNickname() + " appeared!");
 		Thread.sleep(1000);
@@ -61,6 +62,7 @@ public class Battle {
 						tempChoice = input.nextInt();
 						if (tempChoice <= 0 || tempChoice > 2) {
 							System.out.println("Invalid number. Try again.");
+							Thread.sleep(1000);
 						} else {
 							choice = tempChoice;
 							break;
@@ -74,6 +76,7 @@ public class Battle {
 					tryCapture(player);
 				} else {
 					System.out.println(opponentPokemon.getNickname() + " has escaped!");
+					Thread.sleep(2000);
 				}
 
 			}
@@ -211,10 +214,8 @@ public class Battle {
 	private int calculateZMoveDamage(ZMoves move) {
 		double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
 		int ZMoveDamage = move.getBasePower();
-		return (int) (ZMoveDamage * effectiveness / 18);
+		return (int) (ZMoveDamage * effectiveness / 6);
 	}
-
-
 
 	public static Pokemon playerSelectPokemonFromCollection(Player player) {
 		Pokemon playerPokemon;
@@ -274,8 +275,8 @@ public class Battle {
 
 		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",total);
 		choice = getValidatedChoice(1, total);
-		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
-		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
+		System.out.printf("\nYou will fight alongside %s!\n", playerPokemons.get(choice - 1).getSpecies());
+		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(choice - 1).getSpecies());
 		return playerPokemon;
 	}
 
@@ -301,8 +302,6 @@ public class Battle {
 		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
 		return playerPokemon;
 	}*/
-
-
 
 	@Override
 	public String toString() {
