@@ -39,11 +39,6 @@ public class Player {
 		collection.remove(Pokemon.getPokemonByName(pokemon));
 	}
 
-	/*
-	 * public void setCollection(Pokemon collection) {
-	 * this.collection = collection;
-	 * }
-	 */
 
 	public int getScore() {
 		return score;
@@ -57,47 +52,12 @@ public class Player {
 		return pokemonTeam;
 	}
 
-	/*
-	 * public void addPokemon(Pokemon pokemon){
-	 * collection.add(pokemon);
-	 * if (pokemonEquipped.size() < 2){
-	 * pokemonEquipped.add(pokemon);
-	 * }
-	 * 
-	 * }
-	 * 
-	 * public void addCurrentlyPokemon(Pokemon pokemon){
-	 * if(collection.size() < 2 && collection.contains(pokemon)){
-	 * if(pokemonEquipped.contains(pokemon)){
-	 * pokemonEquipped.add(pokemon);
-	 * }
-	 * }
-	 * }
-	 * 
-	 * public void removeCurrentPokemon(Pokemon pokemon){
-	 * pokemonEquipped.remove(pokemon);
-	 * }
-	 */
-
 	public void pokemonBattle(Pokemon pokemon) {
 		if (Pokemon.getAllPokemon().contains(pokemon)) {
 			pokemonTeam = pokemon;
 		}
 
 	}
-
-	/*
-	 * public void loadPlayerInfo(){
-	 * this.collection = FileManager.loadCollection();
-	 * 
-	 * String[] playerInfo = FileManager.loadPlayerInfo();
-	 * if(playerInfo != null){
-	 * this.name = playerInfo[0];
-	 * this.score = Integer.ParseInt(PlayerInfo[1]);
-	 * }
-	 * }
-	 * for later
-	 */
 
 	public boolean selectedPokemonforBattle(Scanner scanner) {
 		if (collection.isEmpty()) {
@@ -308,63 +268,6 @@ public class Player {
 
 	}
 	}
-
-
-	/*public static void catchWildPokemon(Player player) {
-		if (player.getCollection().size() >=3){
-			System.out.println("You do not have space to store anymore Pokemons!");
-		}else{
-			Scanner input = new Scanner(System.in);
-			List<Pokemon> wildPokemonList = Pokemon.getThreeRandomPokemon();
-			int count = 1,tempChoice,choice;
-			for (Pokemon i: wildPokemonList){
-				String name = i.getSpecies();
-				int atk = i.getAtk();
-				int def = i.getDef();
-				int speed = i.getSpeed();
-				ZMoves ZMove = i.getZMove();
-				Class<?> temp = i.getClass();
-				String pokemonType;
-
-				if (temp == Water.class) {
-					pokemonType = "Water";
-				} else if (temp == Electric.class) {
-					pokemonType = "Electric";
-				} else if (temp == Grass.class) {
-					pokemonType = "Grass";
-				} else if (temp == Fire.class) {
-					pokemonType = "Fire";
-				} else {
-					pokemonType = "Normal";
-				}
-
-				System.out.printf("\n%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType, name, atk, def, speed, ZMove.toString());
-				count++;
-			}
-			System.out.println("Which pokemon do you want to catch? (Enter 1, 2 or 3): ");
-			while (true) {
-				try {
-					tempChoice = input.nextInt();
-					if (tempChoice <= 0 || tempChoice > 3) {
-						System.out.println("Invalid number. Try again.");
-					} else {
-						choice = tempChoice;
-						break;
-					}
-				} catch (InputMismatchException e) {
-					System.out.println("Enter a number.");
-					input.next();
-				}
-			}
-			Pokemon pokemonToAttemptCatch = wildPokemonList.get(choice-1);
-			System.out.println("A random pokeball will be picked for you now...");
-			Pokeball randomPokeball = Pokeball.getRandomPokeballByOdds();
-			System.out.printf("You will attempt to catch this Pokemon with a %s!", randomPokeball.getBallName());
-			boolean caught = Pokeball.attemptCatch(randomPokeball);
-			Pokeball.placeCaughtPokemonInCollection(caught, pokemonToAttemptCatch, player);
-		}
-	}*/
-
 
 	@Override
 	public String toString() {
