@@ -40,8 +40,10 @@ public class Battle {
 
 		if (playerPokemon.getHp() <= 0) {
 			System.out.println("You lost the battle...");
+			Pokemon.restoreAllPokemonHp();
 		} else {
 			System.out.println("You defeated " + opponentPokemon.getNickname() + "!");
+			Pokemon.restoreAllPokemonHp();
 			Thread.sleep(1000);
 			if (player.getCollection().size() >= 3) {
 				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(",
@@ -199,7 +201,7 @@ public class Battle {
 		String name,ZMoveName;
 		int choice,atk,def,ZMoveAtk,count=1;
 		int total = playerPokemons.size();
-		int totalRows = 2;
+		int totalRows = 3;
 		
 		System.out.println();
 	    for (int i = 0; i < total; i = i + totalRows) {
@@ -244,7 +246,8 @@ public class Battle {
 				if (i + j < total)
         		System.out.printf("%-40s", "ZMove Attack: " + playerPokemons.get(i+j).getZMove().getBasePower());      	
 	        }
-	        System.out.println("\n");    
+	        System.out.println("\n");
+			count++;
 
 	    }
 

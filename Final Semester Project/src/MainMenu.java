@@ -24,6 +24,7 @@ public class MainMenu {
                     Player.catchWildPokemon(player);
                     break;
                 case 3:
+                System.out.printf("%s's Collection:\n",player.getName());
                 System.out.println(FileManager.getPlayerPokemonFromTxt());
                     break;
                 case 4: //incomplete 
@@ -34,14 +35,19 @@ public class MainMenu {
                 case 6:
                     List<String> playerPokemons = FileManager.getPlayerPokemonFromTxt();
                     int count=1,releaseChoice;
+                    System.out.printf("%s's Collection",player.getName());
                     for (String i: playerPokemons){
                         System.out.printf("%d.\n%s\n",count,i);
                         count++;
                     }
                     System.out.printf("Which Pokemon would you like to relaase back into the wild? (1-%d): ",count-1);
                     releaseChoice = Battle.getValidatedChoice(1, count-1);
-                    FileManager.removePokemonFromPlayerTxtAndCollection(Pokemon.getPokemonByName(playerPokemons.get(releaseChoice-1)));
-                    player.removeFromCollection(playerPokemons.get(releaseChoice-1));
+                    boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(Pokemon.getPokemonByName(playerPokemons.get(releaseChoice-1)));
+                    if (removed){
+                        player.removeFromCollection(playerPokemons.get(releaseChoice-1));
+                    } else {
+
+                    }
                     break;
                 case 7:
                     System.out.println("Shutting down...");

@@ -176,4 +176,10 @@ abstract class Pokemon {
 		}
 		return pokemonNames;
 	}
+	public static void restoreAllPokemonHp(){
+		List<Pokemon> allPokemonList = getAllPokemon();
+		for (Pokemon i: allPokemonList){
+			i.setHp(i.getMaxHp());
+		}
+	}
 	}

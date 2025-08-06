@@ -147,7 +147,6 @@ public class FileManager {
                 playerPokemonList.add(temp.toString());
             }
             while (playerPokemonList.contains("")) playerPokemonList.remove("");
-            System.out.println("\nPokemon Collection: \n" +playerPokemonList);
             return playerPokemonList;
         } catch (Exception e) {
             return null;
@@ -160,7 +159,6 @@ public class FileManager {
         int playerDataIndex = playerDataList.size()+1; 
         int playerPokemonIndex = playerPokemonList.size();
         String temp;
-        System.out.println(playerDataList);
         if (playerPokemonIndex >=3) {
             System.out.println("You cannot store anymore pokemon!");
         } else{
@@ -177,16 +175,17 @@ public class FileManager {
             }
         }
     }
-    public static void removePokemonFromPlayerTxtAndCollection(Pokemon pokemon){
+    public static boolean removePokemonFromPlayerTxtAndCollection(Pokemon pokemon){
         String pokemonName = pokemon.getSpecies();
         List<Object> playerDataList = readPlayerDataFile();
         List<String> playerPokemonList = getPlayerPokemonFromTxt();
         int playerDataIndex = playerDataList.size()-1; 
         int playerPokemonIndex = playerPokemonList.size();
+        boolean removed = false;
         String temp;
-        System.out.println(playerDataList);
         if (!playerDataList.contains(pokemonName) || playerPokemonIndex ==1) {
             System.out.println("You dont have that pokemon in your collection!\n Or you only have 1 pokemon in your collection!");
+            return removed;
         } else{
             playerDataList.remove(pokemonName);
             try {
@@ -198,7 +197,9 @@ public class FileManager {
                 }
                 addPokemonToTxt(pokemon);
                 playerDataFileWriter.close();
+                return removed =true;
             } catch (Exception e) {
+                return true;
             }
         }
     }
@@ -223,7 +224,6 @@ public class FileManager {
             for (String i : names) {
                 currentPokemonObjectList.add(Pokemon.getPokemonByName(i));
             }
-            System.out.println(currentPokemonObjectList);
             return currentPokemonObjectList;
         } catch (Exception e) {
             System.out.println("An error has occured during file reading.");

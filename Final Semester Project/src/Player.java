@@ -292,8 +292,16 @@ public class Player {
 			}
 			Pokemon pokemonToAttemptCatch = wildPokemonList.get(choice-1);
 			System.out.println("A random pokeball will be picked for you now...");
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+			}
 			Pokeball randomPokeball = Pokeball.getRandomPokeballByOdds();
 			System.out.printf("You will attempt to catch this Pokemon with a %s!", randomPokeball.getBallName());
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+			}
 			boolean caught = Pokeball.attemptCatch(randomPokeball);
 			Pokeball.placeCaughtPokemonInCollection(caught, pokemonToAttemptCatch, player);
 
