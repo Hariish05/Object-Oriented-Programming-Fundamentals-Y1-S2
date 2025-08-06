@@ -24,7 +24,7 @@ public class MainMenu {
                     Player.catchWildPokemon(player);
                     break;
                 case 3:
-                System.out.printf("%s's Collection:", player.getName());
+                System.out.printf("%s's Collection:\n",player.getName());
                 System.out.println(FileManager.getPlayerPokemonFromTxt());
                     break;
                 case 4: //incomplete 
