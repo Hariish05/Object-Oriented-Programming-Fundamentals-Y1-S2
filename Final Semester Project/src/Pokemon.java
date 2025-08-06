@@ -41,9 +41,6 @@ abstract class Pokemon {
 	public int getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
 	public int getHp() {
 		return hp;
 	}
@@ -55,9 +52,6 @@ abstract class Pokemon {
 	}
 	public int getDef() {
 		return def;
-	}
-	public void setDef(int def) {
-		this.def = def;
 	}
 	public int getSpeed() {
 		return speed;
