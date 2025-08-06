@@ -7,6 +7,7 @@ public class Battle {
 	private boolean zMoveUsed = false;
 	private boolean opponentZMoveUsed = false;
 	private int zMoveAttempts = 0;
+	private int score;
 
 	public Battle() {
 	}
@@ -15,13 +16,15 @@ public class Battle {
 		this.opponentPokemon = opponentPokemon;
 		this.playerPokemon = playerPokemon;
 		this.rand = new Random();
+		this.score = 0;
 	}
 
 	public void startBattle(Player player) throws InterruptedException {
+		Pokemon.restoreAllPokemonHp();
 		zMoveUsed = false;
 		opponentZMoveUsed = false;
 		zMoveAttempts = 0;
-		int choice = 0, tempChoice = 0;
+		int choice = 0, tempChoice = 0, score = 0;
 
 		System.out.println("A wild " + opponentPokemon.getNickname() + " appeared!");
 		Thread.sleep(1000);
@@ -31,7 +34,7 @@ public class Battle {
 
 		while (playerPokemon.getHp() > 0 && opponentPokemon.getHp() > 0) {
 			if (playerTurn) {
-				playerAttack();
+				score += playerAttack();
 			} else {
 				opponentAttack();
 			}
@@ -40,10 +43,11 @@ public class Battle {
 
 		if (playerPokemon.getHp() <= 0) {
 			System.out.println("You lost the battle...");
-			Pokemon.restoreAllPokemonHp();
+			FileManager.addBattleScore(score);
 		} else {
 			System.out.println("You defeated " + opponentPokemon.getNickname() + "!");
-			Pokemon.restoreAllPokemonHp();
+			System.out.printf("Your battle score was %d!\n", score);
+			FileManager.addBattleScore(score);
 			Thread.sleep(1000);
 			if (player.getCollection().size() >= 3) {
 				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(",
@@ -77,10 +81,6 @@ public class Battle {
 	}
 
 	private void tryCapture(Player player) throws InterruptedException {
-		if (opponentPokemon.getHp() > 0) {
-			System.out.println("You can only catch a Pokémon after it's fainted!");
-			return;
-		}
 		System.out.println("A random Pokeball will be picked for you...");
 		Thread.sleep(1000);
 		Pokeball pokeball = Pokeball.getRandomPokeballByOdds();
@@ -108,7 +108,8 @@ public class Battle {
 		this.playerPokemon = playerpokemon;
 	}
 
-	private void playerAttack() throws InterruptedException{
+	private int playerAttack() throws InterruptedException{
+		int score=0;
 		if (!zMoveUsed && zMoveAttempts < 3) {
 			int[] chances = { 75, 90, 100 };
 			System.out.printf("Do you want to use a Z-Move? (1 for YES, 2 for NO) Current odds: %d%%\n",
@@ -124,11 +125,14 @@ public class Battle {
 							playerPokemon.getZMove().getName(), damage);
 					Thread.sleep(1000);
 					zMoveUsed = true;
-					return;
+					score = calculateScore(0,hit,damage);
+					return score;
 				} else {
+					int damage =0;
 					System.out.println("Z-Move missed! You'll get another chance next turn.");
 					zMoveAttempts++;
 					Thread.sleep(1000);
+					score = calculateScore(0,hit,damage);
 				}
 			}
 		}
@@ -139,6 +143,23 @@ public class Battle {
 		System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" +
 				" (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")");
 		Thread.sleep(1000);
+		score += calculateScore(damage,false,0);
+		return score;
+	}
+
+	public static int calculateScore(int damage,boolean zMove, int zMoveDamage){
+		int score=0;
+		if (damage >20 ){
+			score += 100;
+		} else {
+			score += 50;
+		}
+		if (zMove ==true && zMoveDamage > 30){
+			score += 200;
+		} else{
+			score += 20; 
+		}
+		return score;
 	}
 
 	public static int getValidatedChoice(int min, int max) {

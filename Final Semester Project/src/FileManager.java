@@ -2,6 +2,96 @@ import java.io.*;
 import java.util.*;
 
 public class FileManager {
+    private static final String SCORE_FILE = "battleScores.txt";
+    private static final int MAX_SCORES = 5;
+
+    public static void addBattleScore(int score) {
+        List<Integer> scores = readScoresFromFile();
+        
+        // Add new score to the beginning (most recent first)
+        scores.add(0, score);
+        
+        // Keep only the 5 most recent scores
+        while (scores.size() > MAX_SCORES) {
+            scores.remove(scores.size() - 1); // Remove oldest (last) score
+        }
+        
+        // Write back to file
+        writeScoresToFile(scores);
+        
+        System.out.println("Battle score saved: " + score);
+    }
+
+     public static List<Integer> readScoresFromFile() {
+        List<Integer> scores = new ArrayList<>();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(SCORE_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    try {
+                        int score = Integer.parseInt(line);
+                        scores.add(score);
+                    } catch (NumberFormatException e) {
+                        // Skip invalid lines
+                        System.err.println("Skipping invalid score line: " + line);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // File doesn't exist yet - that's okay, we'll create it
+            System.out.println("Score file not found. Creating new one...");
+        } catch (IOException e) {
+            System.err.println("Error reading score file: " + e.getMessage());
+        }
+        
+        return scores;
+    }
+
+    public static void displayBattleScores() {
+        List<Integer> scores = readScoresFromFile();
+        
+        if (scores.isEmpty()) {
+            System.out.println("No battle scores recorded yet.");
+            return;
+        }
+        
+        System.out.println("\n === RECENT BATTLE SCORES ===");
+        System.out.println("(Showing up to " + MAX_SCORES + " most recent scores)");
+        System.out.println("─".repeat(30));
+        
+        for (int i = 0; i < scores.size(); i++) {
+            System.out.printf("%d. %d points\n", (i + 1), scores.get(i));
+        }
+        System.out.println("─".repeat(30));
+    }
+
+    public static int getHighestScore() {
+        List<Integer> scores = readScoresFromFile();
+        
+        if (scores.isEmpty()) {
+            return 0;
+        }
+        
+        int highestScore = 0;
+        for (int score : scores) {
+            highestScore = Math.max(highestScore, score);
+        }
+        
+        return highestScore;
+    }
+
+    public static void writeScoresToFile(List<Integer> scores) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(SCORE_FILE))) {
+            for (Integer score : scores) {
+                writer.write(score.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to score file: " + e.getMessage());
+        }
+    }
     // Creates a new text file if one doesnt exist but doesnt overwrite it if it
     // does
     public static void createAllPokemonTxt() {
