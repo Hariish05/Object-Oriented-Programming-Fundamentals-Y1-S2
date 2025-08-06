@@ -99,7 +99,7 @@ public class FileManager {
             createPlayerDataFile(player);
             return player;
         } else{
-            System.out.println("A saved player account has been found!\n Would you like to load the previous players account?\n(1 for YES, 2 for NO)");
+            System.out.println("A saved player account has been found!\nWould you like to load the previous players account?\n(1 for YES, 2 for NO)");
             choice = Battle.getValidatedChoice(1,2);
             if (choice ==1){
                 playerName = playerDataList.get(0).toString();
@@ -147,7 +147,7 @@ public class FileManager {
                 playerPokemonList.add(temp.toString());
             }
             while (playerPokemonList.contains("")) playerPokemonList.remove("");
-            System.out.println(playerPokemonList);
+            System.out.println("\nPokemon Collection: \n" +playerPokemonList);
             return playerPokemonList;
         } catch (Exception e) {
             return null;

@@ -190,7 +190,65 @@ public class Battle {
 		int ZMoveDamage = move.getBasePower();
 		return (int) (ZMoveDamage * effectiveness / 18);
 	}
+
+
+
 	public static Pokemon playerSelectPokemonFromCollection(Player player) {
+		Pokemon playerPokemon;
+		List<Pokemon> playerPokemons = player.getCollection();
+		String name,ZMoveName;
+		int choice,atk,def,ZMoveAtk,count=1;
+		int total = playerPokemons.size();
+		int totalRows = 2;
+		
+		System.out.println();
+	    for (int i = 0; i < total; i = i + totalRows) {
+
+	        for (int j = 0; j < totalRows; j++) {
+	                System.out.printf("%-40s", (i + j + 1) + ".");
+	        } 
+	        System.out.println();
+	        
+	        for (int j = 0; j < totalRows; j++) {
+	            System.out.printf("%-40s", "Name: " + playerPokemons.get(i + j).getSpecies());
+	        }
+	        System.out.println();
+	        
+	        for(int j = 0; j< totalRows; j++) {
+	        	System.out.printf("%-40s", "Attack: " + playerPokemons.get(i+j).getAtk());      	
+	        }
+	        System.out.println();
+	        
+	        for(int j = 0; j< totalRows; j++) {
+        		System.out.printf("%-40s", "Defence: " + playerPokemons.get(i+j).getDef());      	
+	        }
+	        System.out.println();
+
+	        for(int j = 0; j< totalRows; j++) {
+        		System.out.printf("%-40s", "Speed: " + playerPokemons.get(i+j).getSpeed());      	
+	        }
+	        System.out.println();
+	        
+	        for(int j = 0; j< totalRows; j++) {
+	        	System.out.printf("%-40s", "ZMove Name: " + playerPokemons.get(i+j).getZMove().getName());      	
+	        }
+	        System.out.println();     
+
+	        for(int j = 0; j< totalRows; j++) {
+        		System.out.printf("%-40s", "ZMove Attack: " + playerPokemons.get(i+j).getZMove().getBasePower());      	
+	        }
+	        System.out.println("\n");    
+
+	    }
+
+		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",count);
+		choice = getValidatedChoice(1, total);
+		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
+		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
+		return playerPokemon;
+	}
+
+	/*public static Pokemon playerSelectPokemonFromCollection(Player player) {
 		Pokemon playerPokemon;
 		List<Pokemon> playerPokemons = player.getCollection();
 		String name,ZMoveName;
@@ -202,7 +260,7 @@ public class Battle {
 			ZMoveAtk = i.getZMove().getBasePower();
 			atk = i.getAtk();
 			def=i.getDef();
-			System.out.printf("%d.\nName: %s\nAttack: %d\nDefense: %d\nZMove Name: %s\nZMove Attack: %d",count,name,atk,def,ZMoveName,ZMoveAtk);
+			System.out.printf("\n%d.\nName: %s\nAttack: %d\nDefense: %d\nZMove Name: %s\nZMove Attack: %d",count,name,atk,def,ZMoveName,ZMoveAtk);
 			count++;
 		}
 		count--;
@@ -211,7 +269,9 @@ public class Battle {
 		System.out.printf("\nYou will fight alongside %s!\n",playerPokemons.get(count-1).getSpecies());
 		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(count-1).getSpecies());
 		return playerPokemon;
-	}
+	}*/
+
+
 
 	@Override
 	public String toString() {

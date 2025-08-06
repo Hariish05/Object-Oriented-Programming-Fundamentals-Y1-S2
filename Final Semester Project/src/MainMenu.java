@@ -8,7 +8,7 @@ public class MainMenu {
         boolean on = true;
 
         while (on){
-            System.out.println("\t\tMain Menu\n1. Battle\n2. Catch wild pokemon\n3. Check collection\n4.Check top 5 scores of previous battles\n5. Check all obtainable Pokemon\n6. Release one of your Pokemons\n7. Exit");
+            System.out.println("\n\t\tMain Menu\n-------------------------------------------\n1. Battle\n2. Catch wild pokemon\n3. Check collection\n4. Check top 5 scores of previous battles\n5. Check all obtainable Pokemon\n6. Release one of your Pokemons\n7. Exit");
             choice = Battle.getValidatedChoice(1, 7);
             switch(choice){
                 case 1:

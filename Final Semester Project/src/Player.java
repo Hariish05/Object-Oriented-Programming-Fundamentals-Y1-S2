@@ -201,7 +201,108 @@ public class Player {
 		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
 	}
 
+
+
 	public static void catchWildPokemon(Player player) {
+		String name,ZMoveName;
+		int choice,atk,def,speed,ZMoveAtk,tempChoice,count=1;
+		int total = 3;
+		int totalRows = 3;
+		String pokemonType;
+
+		if (player.getCollection().size() >=3){
+			System.out.println("You do not have space to store anymore Pokemons!");
+		}
+		else{
+			Scanner input = new Scanner(System.in);
+			List<Pokemon> wildPokemonList = Pokemon.getThreeRandomPokemon();
+			System.out.println();
+
+
+			for (int i = 0; i < total; i++) {
+	        	System.out.printf("%-40s", (i + 1) + ".");
+			}
+			System.out.println();
+
+			for (int i = 0; i < total; i++) {
+            	Pokemon p = wildPokemonList.get(i);
+            	String type;
+            	Class<?> temp = p.getClass();
+				if (temp == Water.class) {
+					pokemonType = "Water";
+				} else if (temp == Electric.class) {
+					pokemonType = "Electric";
+				} else if (temp == Grass.class) {
+					pokemonType = "Grass";
+				} else if (temp == Fire.class) {
+					pokemonType = "Fire";
+				} else {
+					pokemonType = "Normal";
+				}
+
+            	System.out.printf("%-40s", "Type: " + pokemonType);
+    		}
+    		System.out.println();
+
+
+	    	for (int i = 0; i < totalRows; i++) {
+	        	System.out.printf("%-40s", "Name: " + wildPokemonList.get(i).getSpecies());
+	        }
+			System.out.println();
+			
+		    for(int i = 0; i< totalRows; i++) {
+		    	System.out.printf("%-40s", "Attack: " + wildPokemonList.get(i).getAtk());      	
+    	    }
+		    System.out.println();
+	        
+		    for(int i = 0; i< totalRows; i++) {
+    			System.out.printf("%-40s", "Defence: " + wildPokemonList.get(i).getDef());      	
+    	    }
+		    System.out.println();
+
+    	    for(int i = 0; i< totalRows; i++) {
+    			System.out.printf("%-40s", "Speed: " + wildPokemonList.get(i).getSpeed());      	
+    	    }
+    	    System.out.println();
+	        
+	        for(int i = 0; i< totalRows; i++) {
+     		   	System.out.printf("%-40s", "ZMove Name: " + wildPokemonList.get(i).getZMove().getName());      	
+     	   }
+     	   System.out.println();     
+
+			for(int i = 0; i< totalRows; i++) {
+    			System.out.printf("%-40s", "ZMove Attack: " + wildPokemonList.get(i).getZMove().getBasePower());      	
+        	}
+			System.out.println("\n");   
+	    
+			System.out.println("Which pokemon do you want to catch? (Enter 1, 2 or 3): ");
+			while (true) {
+				try {
+					tempChoice = input.nextInt();
+					if (tempChoice <= 0 || tempChoice > 3) {
+						System.out.println("Invalid number. Try again.");
+					} else {
+						choice = tempChoice;
+						break;
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Enter a number.");
+					input.next();
+				}
+			}
+			Pokemon pokemonToAttemptCatch = wildPokemonList.get(choice-1);
+			System.out.println("A random pokeball will be picked for you now...");
+			Pokeball randomPokeball = Pokeball.getRandomPokeballByOdds();
+			System.out.printf("You will attempt to catch this Pokemon with a %s!", randomPokeball.getBallName());
+			boolean caught = Pokeball.attemptCatch(randomPokeball);
+			Pokeball.placeCaughtPokemonInCollection(caught, pokemonToAttemptCatch, player);
+
+
+	}
+	}
+
+
+	/*public static void catchWildPokemon(Player player) {
 		if (player.getCollection().size() >=3){
 			System.out.println("You do not have space to store anymore Pokemons!");
 		}else{
@@ -254,7 +355,8 @@ public class Player {
 			boolean caught = Pokeball.attemptCatch(randomPokeball);
 			Pokeball.placeCaughtPokemonInCollection(caught, pokemonToAttemptCatch, player);
 		}
-	}
+	}*/
+
 
 	@Override
 	public String toString() {

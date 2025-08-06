@@ -1,13 +1,11 @@
 Charmander
 Torchic
 Tepig
-Oshawott
 Piplup
-Bulbasaur
 Snivy
 Turtwig
 Elekid
 Shinx
-Pidgey
 Eevee
 Munchlax
+Oshawott
