@@ -8,15 +8,12 @@ public class FileManager {
     public static void addBattleScore(int score) {
         List<Integer> scores = readScoresFromFile();
         
-        // Add new score to the beginning (most recent first)
         scores.add(0, score);
         
-        // Keep only the 5 most recent scores
         while (scores.size() > MAX_SCORES) {
-            scores.remove(scores.size() - 1); // Remove oldest (last) score
+            scores.remove(scores.size() - 1);
         }
         
-        // Write back to file
         writeScoresToFile(scores);
         
         System.out.println("Battle score saved: " + score);
@@ -34,13 +31,11 @@ public class FileManager {
                         int score = Integer.parseInt(line);
                         scores.add(score);
                     } catch (NumberFormatException e) {
-                        // Skip invalid lines
                         System.err.println("Skipping invalid score line: " + line);
                     }
                 }
             }
         } catch (FileNotFoundException e) {
-            // File doesn't exist yet - that's okay, we'll create it
             System.out.println("Score file not found. Creating new one...");
         } catch (IOException e) {
             System.err.println("Error reading score file: " + e.getMessage());
