@@ -8,9 +8,9 @@ public class Electric extends Pokemon{
         super(nickname, maxHp, atk, def, speed, species,ZMove);
     }
     // Electric pokemon object creation (VALUES NOT FINAL)
-    public static Pokemon elekid = new Electric("Elekid",63,37,95,"Elekid",45,ZMoves.GIGAVOLT_HAVOC_ELEKID);
-    public static Pokemon pikachu = new Electric("Pikachu",55,40,90,"Pikachu",35,ZMoves.CATASTROPIKA);
-    public static Pokemon shinx = new Electric("Shinx",65,34,45,"Shinx",45,ZMoves.GIGAVOLT_HAVOC_SHINX);
+    public static Pokemon elekid = new Electric("Elekid", 73, 37, 95, "Elekid", 116, ZMoves.GIGAVOLT_HAVOC_ELEKID);
+    public static Pokemon pikachu = new Electric("Pikachu", 78, 40, 93, "Pikachu", 118, ZMoves.CATASTROPIKA);
+    public static Pokemon shinx = new Electric("Shinx", 69, 34, 45, "Shinx", 120, ZMoves.GIGAVOLT_HAVOC_SHINX);
 
     public static List<Pokemon> getAllElectricPokemon(){
         return Arrays.asList(elekid,pikachu,shinx);

@@ -105,6 +105,11 @@ public class Player {
 			player.setCollection(finalPokemon);
 			FileManager.removePokemonFromTxt(finalPokemon);
 			System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
+			try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 	}
 
 	public static void catchWildPokemon(Player player) {
@@ -115,6 +120,11 @@ public class Player {
 
 		if (player.getCollection().size() >=3){
 			System.out.println("You do not have space to store anymore Pokemons!");
+			try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 		}
 		else{
 			Scanner input = new Scanner(System.in);

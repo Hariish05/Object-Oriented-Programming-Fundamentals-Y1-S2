@@ -23,20 +23,35 @@ public class MainMenu {
                     Player.catchWildPokemon(player);
                     break;
                 case 3:
-                System.out.printf("%s's Collection:\n",player.getName());
-                System.out.println(FileManager.getPlayerPokemonFromTxt());
+                    System.out.printf("%s's Collection:\n", player.getName());
+                    System.out.println(FileManager.getPlayerPokemonFromTxt());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     break;
                 case 4:
                     FileManager.displayBattleScores();
                     int highestScore = FileManager.getHighestScore();
-                    System.out.println("The highest score in the past 5 battle is "+highestScore+"!");
+                    System.out.println("The highest score from the past 5 battles is " + highestScore + "!");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     break;
                 case 5:
                     System.out.println(FileManager.getCurrentPokemonNameList());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     break;
                 case 6:
                     List<String> playerPokemons = FileManager.getPlayerPokemonFromTxt();
-                    int count=1,releaseChoice;
+                    int count = 1, releaseChoice;
                     System.out.printf("%s's Collection:\n\n", player.getName());
                     for (String i : playerPokemons) {
                         System.out.printf("%d.\n%s\n", count, i);
@@ -48,10 +63,15 @@ public class MainMenu {
                     String releasedPokemonName = playerPokemons.get(releaseChoice - 1);
                     Pokemon releasedPokemon = Pokemon.getPokemonByName(releasedPokemonName);
                     boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(releasedPokemon);
+
                     if (removed) {
                         player.removeFromCollection(releasedPokemonName);
                         System.out.printf("%s has been released back into the wild.\n", releasedPokemonName);
-                    } else {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
                     }
                     break;
                 case 7:

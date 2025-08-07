@@ -186,9 +186,19 @@ public class FileManager {
             }
             Player player = new Player(playerName);
             System.out.println("Account created successfully!\nNow you must pick a starter Pokemon...");
+            try {
+	            Thread.sleep(2000);
+	        } catch (InterruptedException e) {
+	            Thread.currentThread().interrupt();
+	        }
             Player.chooseStarter(player);
             System.out.println("You can now get started!");
             createPlayerDataFile(player);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             return player;
         } else{
             System.out.println("A saved player account has been found!\nWould you like to load the previous players account?\n(1 for YES, 2 for NO)");
@@ -225,9 +235,19 @@ public class FileManager {
                 }
                 Player player = new Player(playerName);
                 System.out.println("Now you must pick your starter Pokemon...");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
                 Player.chooseStarter(player);
                 System.out.println("You can now get started!");
                 createPlayerDataFile(player);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
                 return player;
             }
         }
@@ -286,7 +306,7 @@ public class FileManager {
         boolean removed = false;
         String temp;
         if (!playerDataList.contains(pokemonName) || playerPokemonIndex ==1) {
-            System.out.println("You dont have that pokemon in your collection!\n Or you only have 1 pokemon in your collection!");
+            System.out.println("Release failed! Either you do not have that Pokemon in your collection or it is your only Pokemon in your collection!");
             return removed;
         } else{
             playerDataList.remove(pokemonName);
