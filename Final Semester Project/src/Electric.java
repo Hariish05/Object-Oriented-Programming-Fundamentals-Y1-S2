@@ -18,7 +18,7 @@ public class Electric extends Pokemon{
     
     @Override
     public void useTypeMove(){
-        System.out.printf("%s uses an Electricity type move!\n", getNickname());
+        System.out.printf("%s uses an Electric type move!\n", getNickname());
     }
     @Override
     public String toString(){
