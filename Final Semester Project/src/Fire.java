@@ -6,7 +6,7 @@ public class Fire extends Pokemon{
     public Fire(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
         super(nickname, maxHp, atk, def, speed, species,ZMove);
     }
-    //Fire Pokemon object creation (VALUES NOT FINAL)
+    //Fire Pokemon object creation 
     public static Pokemon charmander = new Fire("Charmander",52,43,65,"Charmander",39,ZMoves.INFERNO_OVERDRIVE_CHARMANDER);
     public static Pokemon torchic = new Fire("Torchic",60,40,45,"Torchic",45,ZMoves.INFERNO_OVERDRIVE_TORCHIC);
     public static Pokemon tepig = new Fire("Tepig",63,45,45,"Tepig",65,ZMoves.INFERNO_OVERDRIVE_TEPIG);

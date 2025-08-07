@@ -109,12 +109,11 @@ public class FileManager {
         }
     }
 
-    // (REPLACED OLD METHOD) creates playerData text file and only allows one player to be stored
+    // creates playerData text file and only allows one player to be stored
     public static void createPlayerDataFile(Player player) {
-        String name = player.getName();
+        String name = player.getName(),divider = "-------";
         List<Pokemon> playerPokemonList = player.getCollection();
         List<String> playerPokemonNameList= new ArrayList<>();
-        int score = player.getScore();
         for (Pokemon i: playerPokemonList){
             playerPokemonNameList.add(i.getSpecies());
         }
@@ -125,7 +124,7 @@ public class FileManager {
             if (playerDataFileReader.readLine() == null){
                 playerDataFileWriter.append(name);
                 playerDataFileWriter.newLine();
-                playerDataFileWriter.append(Integer.toString(score));
+                playerDataFileWriter.append(divider);
                 playerDataFileWriter.newLine();
                 for (String i: playerPokemonNameList){
                     playerDataFileWriter.append(i);
@@ -138,6 +137,7 @@ public class FileManager {
             System.out.println("An error has occurred during file writing.");
         }
     }
+
     public static List<Object> readPlayerDataFile(){
         int lineCount=0;
         List<Object> playerDataList = new ArrayList<>();
@@ -160,6 +160,7 @@ public class FileManager {
             return null;
         }
     }
+
     public static Player createNewPlayerOrUseExistingOne(){
         List<Object> playerDataList = readPlayerDataFile();
         List<String> playerPokemonNameList = getPlayerPokemonFromTxt();
@@ -168,6 +169,12 @@ public class FileManager {
         String playerName;
         int choice;
         if (playerDataList ==null || playerDataList.isEmpty()){
+            //overwrites allPokemon File with an empty one
+            try (BufferedWriter allPokemonTxtOverwritter = new BufferedWriter(new FileWriter("allPokemon.txt",false));){
+                } catch (Exception e) {
+
+                }
+                createAllPokemonTxt();
             System.out.println("Since you are a first-time user, you must create an account.\nEnter your player name: ");
             while (true) { 
                 try {
@@ -185,7 +192,7 @@ public class FileManager {
             return player;
         } else{
             System.out.println("A saved player account has been found!\nWould you like to load the previous players account?\n(1 for YES, 2 for NO)");
-            choice = Battle.getValidatedChoice(1,2);
+            choice = Player.getValidatedChoice(1,2);
             if (choice ==1){
                 playerName = playerDataList.get(0).toString();
                 Player player = new Player(playerName);
@@ -196,7 +203,14 @@ public class FileManager {
                 System.out.println("You can now get started!");
                 return player;
             } else{
-                try (BufferedWriter playerDataFileWriter = new BufferedWriter(new FileWriter("playerData.txt",false));){
+                ////overwrites allPokemon File with an empty one
+                try (BufferedWriter allPokemonTxtOverwritter = new BufferedWriter(new FileWriter("allPokemon.txt",false));){
+                } catch (Exception e) {
+
+                }
+                createAllPokemonTxt();
+                // Creates a new playerData.txt with nothing in it
+                try (BufferedWriter playerDataTxtOverwriter = new BufferedWriter(new FileWriter("playerData.txt",false));){
                 } catch (Exception e) {
 
                 }
@@ -218,6 +232,7 @@ public class FileManager {
             }
         }
     }
+
     public static List<String> getPlayerPokemonFromTxt(){
         List<Object> playerDataList = readPlayerDataFile();
         List<String> playerPokemonList = new ArrayList<>();
@@ -237,6 +252,7 @@ public class FileManager {
             return null;
         }
     }
+
     public static void addPokemonToPlayerTxt(Pokemon pokemon){
         String pokemonName = pokemon.getSpecies();
         List<Object> playerDataList = readPlayerDataFile();
@@ -260,6 +276,7 @@ public class FileManager {
             }
         }
     }
+
     public static boolean removePokemonFromPlayerTxtAndCollection(Pokemon pokemon){
         String pokemonName = pokemon.getSpecies();
         List<Object> playerDataList = readPlayerDataFile();
@@ -345,7 +362,6 @@ public class FileManager {
             currentPokemonNameList.remove(pokemonNameTORemove);
             writeToAllPokemonList(currentPokemonNameList);
         }else{
-            System.out.println("error message (to be removed)");
         }
     }
     //method to add desired pokemon to allPokemon.txt
@@ -356,7 +372,6 @@ public class FileManager {
             currentPokemonNameList.add(pokemonNameTORemove);
             writeToAllPokemonList(currentPokemonNameList);
         }else{
-            System.out.println("error message (to be removed)");
         }
     }
     

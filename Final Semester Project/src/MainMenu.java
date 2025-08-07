@@ -4,12 +4,11 @@ public class MainMenu {
         FileManager.createAllPokemonTxt(); 
         Player player = FileManager.createNewPlayerOrUseExistingOne(); // THESE 2 LINES MUST RUN ALWAYS AT THE START
         int choice;
-        Scanner input = new Scanner(System.in);
         boolean on = true;
 
         while (on){
             System.out.println("\n\t\tMain Menu\n-------------------------------------------\n1. Battle\n2. Catch wild pokemon\n3. Check collection\n4. Check top 5 scores of previous battles\n5. Check all obtainable Pokemon\n6. Release one of your Pokemons\n7. Exit");
-            choice = Battle.getValidatedChoice(1, 7);
+            choice = Player.getValidatedChoice(1, 7);
             switch(choice){
                 case 1:
                     Pokemon playerPokemom = Battle.playerSelectPokemonFromCollection(player);
@@ -45,7 +44,7 @@ public class MainMenu {
                     }
                     System.out.printf("\nWhich Pokemon would you like to release back into the wild? (1-%d): ", count - 1);
 
-                    releaseChoice = Battle.getValidatedChoice(1, count-1);
+                    releaseChoice = Player.getValidatedChoice(1, count-1);
                     String releasedPokemonName = playerPokemons.get(releaseChoice - 1);
                     Pokemon releasedPokemon = Pokemon.getPokemonByName(releasedPokemonName);
                     boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(releasedPokemon);
@@ -62,4 +61,5 @@ public class MainMenu {
             }
         }
     }
+    
 }

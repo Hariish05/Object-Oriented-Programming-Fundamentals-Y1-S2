@@ -7,16 +7,11 @@ public class Battle {
 	private boolean zMoveUsed = false;
 	private boolean opponentZMoveUsed = false;
 	private int zMoveAttempts = 0;
-	private int score;
-
-	public Battle() {
-	}
 
 	public Battle(Pokemon opponentPokemon, Pokemon playerPokemon) {
 		this.opponentPokemon = opponentPokemon;
 		this.playerPokemon = playerPokemon;
 		this.rand = new Random();
-		this.score = 0;
 	}
 
 	public void startBattle(Player player) throws InterruptedException {
@@ -102,21 +97,13 @@ public class Battle {
 		return playerRoll >= opponentRoll;
 	}
 
-	public Pokemon getPlayerPokemon() {
-		return playerPokemon;
-	}
-
-	public void setPlayerPokemon(Pokemon playerpokemon) {
-		this.playerPokemon = playerpokemon;
-	}
-
 	private int playerAttack() throws InterruptedException{
 	int score=0;
 	if (!zMoveUsed && zMoveAttempts < 3) {
 		int[] chances = { 75, 90, 100 };
 		System.out.printf("Do you want to use a Z-Move? (1 for YES, 2 for NO) Current odds: %d%%\n",
 				chances[zMoveAttempts]);
-		int choice = getValidatedChoice(1, 2);
+		int choice = Player.getValidatedChoice(1, 2);
 
 		if (choice == 1) {
 			boolean hit = attemptZMoveHit();
@@ -192,23 +179,6 @@ public class Battle {
 		return score;
 }
 
-	public static int getValidatedChoice(int min, int max) {
-		Scanner input = new Scanner(System.in);
-		int choice = 0;
-		while (true) {
-			try {
-				choice = input.nextInt();
-				if (choice >= min && choice <= max)
-					break;
-				else
-					System.out.println("Invalid choice. Try again.");
-			} catch (InputMismatchException e) {
-				System.out.println("Please enter a number.");
-				input.next(); // clear invalid input
-			}
-		}
-		return choice;
-	}
 
 	private boolean attemptZMoveHit() {
 		int[] chances = { 75, 90, 100 };
@@ -229,8 +199,6 @@ public class Battle {
 		double effectiveness = Pokemon.getTypeEffectiveness(attacker, defender);
 		double random = 0.9 + rand.nextDouble() * 0.2; // Random factor between 0.9 to 1.1
 
-		int basePower = move.getBasePower();
-
 		double baseDamage = 30;
 
 		if (effectiveness > 1.0) {
@@ -248,8 +216,7 @@ public class Battle {
 	public static Pokemon playerSelectPokemonFromCollection(Player player) {
 		Pokemon playerPokemon;
 		List<Pokemon> playerPokemons = player.getCollection();
-		String name,ZMoveName;
-		int choice,atk,def,ZMoveAtk,count=1;
+		int choice;
 		int total = playerPokemons.size();
 		int totalRows = 3;
 		
@@ -290,19 +257,11 @@ public class Battle {
 				if (i + j < total)
 	        	System.out.printf("%-40s", "ZMove Name: " + playerPokemons.get(i+j).getZMove().getName());      	
 	        }
-	        System.out.println();     
-
-	        for(int j = 0; j< totalRows; j++) {
-				if (i + j < total)
-        		System.out.printf("%-40s", "ZMove Attack: " + playerPokemons.get(i+j).getZMove().getBasePower());      	
-	        }
 	        System.out.println("\n");
-			count++;
-
 	    }
 
 		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",total);
-		choice = getValidatedChoice(1, total);
+		choice = Player.getValidatedChoice(1, total);
 		System.out.printf("\nYou will fight alongside %s!\n", playerPokemons.get(choice - 1).getSpecies());
 		playerPokemon = Pokemon.getPokemonByName(playerPokemons.get(choice - 1).getSpecies());
 		return playerPokemon;
@@ -316,9 +275,4 @@ public class Battle {
 	}
 	return ""; // Neutral effectiveness
 }
-
-	@Override
-	public String toString() {
-		return String.format("Battle [opponentPokemon=%s, playerPokemon=%s]", opponentPokemon, playerPokemon);
-	}
 }
