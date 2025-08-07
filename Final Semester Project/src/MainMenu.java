@@ -32,9 +32,13 @@ public class MainMenu {
                     }
                     break;
                 case 4:
-                    FileManager.displayBattleScores();
-                    int highestScore = FileManager.getHighestScore();
-                    System.out.println("The highest score from the past 5 battles is " + highestScore + "!");
+                    boolean exists = FileManager.displayBattleScores();
+                    if (exists){
+                        int highestScore = FileManager.getHighestScore();
+                        System.out.println("The highest score from the past 5 battles is " + highestScore + "!");
+                    }else {
+                        
+                    }
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {

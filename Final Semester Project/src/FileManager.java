@@ -44,12 +44,12 @@ public class FileManager {
         return scores;
     }
 
-    public static void displayBattleScores() {
+    public static boolean displayBattleScores() {
         List<Integer> scores = readScoresFromFile();
         
         if (scores.isEmpty()) {
             System.out.println("No battle scores recorded yet.");
-            return;
+            return false;
         }
         
         System.out.println("\n === RECENT BATTLE SCORES ===");
@@ -60,6 +60,7 @@ public class FileManager {
             System.out.printf("%d. %d points\n", (i + 1), scores.get(i));
         }
         System.out.println("─".repeat(30));
+        return true;
     }
 
     public static int getHighestScore() {
