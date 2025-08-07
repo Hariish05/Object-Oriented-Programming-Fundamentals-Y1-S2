@@ -35,7 +35,7 @@ public class MainMenu {
                 case 4:
                     FileManager.displayBattleScores();
                     int highestScore = FileManager.getHighestScore();
-                    System.out.println("The highest score in the past 5 battle is " + highestScore + "!");
+                    System.out.println("The highest score from the past 5 battles is " + highestScore + "!");
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
