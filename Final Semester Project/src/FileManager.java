@@ -169,12 +169,17 @@ public class FileManager {
         String playerName;
         int choice;
         if (playerDataList ==null || playerDataList.isEmpty()){
+            //overwrites battleScores file with an empty one 
+            try (BufferedWriter battleScoresTxtOverwritter = new BufferedWriter(new FileWriter("battleScores.txt",false));){
+                } catch (Exception e) {
+
+                }
             //overwrites allPokemon File with an empty one
             try (BufferedWriter allPokemonTxtOverwritter = new BufferedWriter(new FileWriter("allPokemon.txt",false));){
                 } catch (Exception e) {
 
                 }
-                createAllPokemonTxt();
+            createAllPokemonTxt();
             System.out.println("Since you are a first-time user, you must create an account.\nEnter your player name: ");
             while (true) { 
                 try {
@@ -213,6 +218,11 @@ public class FileManager {
                 System.out.println("You can now get started!");
                 return player;
             } else{
+                //overwrites battleScores file with an empty one
+                try (BufferedWriter battleScoresTxtOverwritter = new BufferedWriter(new FileWriter("battleScores.txt",false));){
+                } catch (Exception e) {
+
+                }
                 ////overwrites allPokemon File with an empty one
                 try (BufferedWriter allPokemonTxtOverwritter = new BufferedWriter(new FileWriter("allPokemon.txt",false));){
                 } catch (Exception e) {

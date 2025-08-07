@@ -272,7 +272,8 @@ public class Battle {
 	        System.out.println();
 
 			for(int j = 0; j< totalRows; j++) {
-     		   	System.out.printf("%-40s", "ZMove Power: " + playerPokemons.get(i).getZMove().getBasePower());      	
+				if (i + j < total)
+     		   	System.out.printf("%-40s", "ZMove Power: " + playerPokemons.get(i+j).getZMove().getBasePower());      	
      	    }
      	    System.out.println("\n");
 	    }
