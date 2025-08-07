@@ -8,9 +8,9 @@ public class Normal extends Pokemon{
         super(nickname, maxHp, atk, def, speed, species,Zmove);
     }
     //Normal Pokemon object creation
-    public static Pokemon pidgey = new Normal("Pidgey",45,40,56,"Pidgey",40, ZMoves.BREAKNECK_BLITZ_PIDGEY);
-    public static Pokemon eevee = new Normal("Eevee",55,50,55,"Eevee",55, ZMoves.EXTREME_EVOBOOST);
-    public static Pokemon munchlax = new Normal("Munchlax",48,45,25,"Munchlax",51, ZMoves.PULVERIZING_PANCAKE);
+    public static Pokemon pidgey = new Normal("Pidgey", 40, 40, 56, "Pidgey", 126, ZMoves.BREAKNECK_BLITZ_PIDGEY);
+    public static Pokemon eevee = new Normal("Eevee", 90, 50, 55, "Eevee", 116, ZMoves.EXTREME_EVOBOOST);
+    public static Pokemon munchlax = new Normal("Munchlax", 55, 45, 25, "Munchlax", 140, ZMoves.PULVERIZING_PANCAKE);
 
     public static List<Pokemon> getAllNormalPokemon(){
         return Arrays.asList(pidgey,eevee,munchlax);
