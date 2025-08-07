@@ -50,7 +50,7 @@ public class Battle {
 			FileManager.addBattleScore(score);
 			Thread.sleep(1000);
 			if (player.getCollection().size() >= 3) {
-				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(",
+				System.out.printf("Despite defeating %s, you do not have space to attempt capturing it :(\n",
 						opponentPokemon.getSpecies());
 			} else {
 				System.out.printf("Do you want to attempt capturing %s? (1 for YES, 2 for NO): ",
@@ -128,8 +128,8 @@ public class Battle {
 				double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
 				String effectivenessMsg = getEffectivenessText(effectiveness);
 
-				System.out.printf("You used Z-Move %s! It hit and dealt %d damage!%s\n",
-					playerPokemon.getZMove().getName(), damage, effectivenessMsg);
+				System.out.printf("You used Z-Move %s! It hit and dealt %d damage!%s (%d/%d) \n",
+					playerPokemon.getZMove().getName(), damage, effectivenessMsg, opponentPokemon.getHp(), opponentPokemon.getMaxHp());
 
 				Thread.sleep(1000);
 				zMoveUsed = true;
@@ -158,21 +158,31 @@ public class Battle {
 
 	private void opponentAttack() throws InterruptedException {
 	if (!opponentZMoveUsed && opponentPokemon.getZMove() != null) {
+		// Z-Moves are undodgeable
 		int damage = calculateZMoveDamage(opponentPokemon.getZMove(), opponentPokemon, playerPokemon);
 		playerPokemon.reduceHp(damage);
 		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
 		String effectivenessMsg = getEffectivenessText(effectiveness);
-		System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!%s\n",
-			opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage, effectivenessMsg);
+		System.out.printf("%s used its Z-Move %s! It dealt %d damage to you!%s (%d/%d)\n",
+			opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage, effectivenessMsg, playerPokemon.getHp(), playerPokemon.getMaxHp());
 
 		opponentZMoveUsed = true;
 	} else {
+		int dodgeRoll = rand.nextInt(100);
+		if (dodgeRoll < 10) { //10% for player Pokemon to dodge
+			System.out.printf("%s attacked you, but you dodged it! (%d/%d)\n",
+				opponentPokemon.getNickname(), playerPokemon.getHp(), playerPokemon.getMaxHp());
+			Thread.sleep(1000);
+			return;
+		}
+
+		// Regular attack logic
 		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
 		int damage = calculateDamage(opponentPokemon.getAtk(), playerPokemon.getDef(), effectiveness);
 		playerPokemon.reduceHp(damage);
 		String effectivenessMsg = getEffectivenessText(effectiveness);
 		System.out.println(opponentPokemon.getNickname() + " attacked you for " + damage + " damage!" +
-		" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")" + effectivenessMsg);
+			" (" + playerPokemon.getHp() + "/" + playerPokemon.getMaxHp() + ")" + effectivenessMsg);
 	}
 	Thread.sleep(1000);
 }
@@ -204,7 +214,7 @@ public class Battle {
 					System.out.println("Invalid choice. Try again.");
 			} catch (InputMismatchException e) {
 				System.out.println("Please enter a number.");
-				input.next(); // clear invalid input
+				input.next();
 			}
 		}
 		return choice;
@@ -227,22 +237,18 @@ public class Battle {
 
 	private int calculateZMoveDamage(ZMoves move, Pokemon attacker, Pokemon defender) {
 		double effectiveness = Pokemon.getTypeEffectiveness(attacker, defender);
-		double random = 0.9 + rand.nextDouble() * 0.2; // Random factor between 0.9 to 1.1
 
-		int basePower = move.getBasePower();
-
-		double baseDamage = 30;
+		double baseDamage;
 
 		if (effectiveness > 1.0) {
-			baseDamage = 50; 
+			baseDamage = 50;  
 		} else if (effectiveness < 1.0) {
-			baseDamage = 20; 
+			baseDamage = 30;  
+		} else {
+			baseDamage = 40;  
 		}
 
-		// Apply randomness
-		double finalDamage = baseDamage * random;
-
-		return (int) finalDamage;
+		return (int) baseDamage;
 	}
 
 	public static Pokemon playerSelectPokemonFromCollection(Player player) {
@@ -314,7 +320,7 @@ public class Battle {
 	} else if (effectiveness < 1.0) {
 		return " It's not very effective...";
 	}
-	return ""; // Neutral effectiveness
+	return "";
 }
 
 	@Override
