@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Player {
-	public static final Random RANDOM = new Random();
+	private static final Random RANDOM = new Random();
 	private String name;
 	private List<Pokemon> collection;
 
