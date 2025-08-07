@@ -24,41 +24,66 @@ public class MainMenu {
                     Player.catchWildPokemon(player);
                     break;
                 case 3:
-                System.out.printf("%s's Collection:\n",player.getName());
-                System.out.println(FileManager.getPlayerPokemonFromTxt());
+                    System.out.printf("%s's Collection:\n", player.getName());
+                    System.out.println(FileManager.getPlayerPokemonFromTxt());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     break;
                 case 4:
                     FileManager.displayBattleScores();
                     int highestScore = FileManager.getHighestScore();
-                    System.out.println("The highest score in the past 5 battle is "+highestScore+"!");
+                    System.out.println("The highest score in the past 5 battle is " + highestScore + "!");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     break;
                 case 5:
                     System.out.println(FileManager.getCurrentPokemonNameList());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     break;
                 case 6:
-                List<String> playerPokemons = FileManager.getPlayerPokemonFromTxt();
-                int count = 1, releaseChoice;
-                System.out.printf("%s's Collection:\n\n", player.getName());
-                for (String i : playerPokemons) {
-                    System.out.printf("%d.\n%s\n", count, i);
-                    count++;
-                }
-                System.out.printf("\nWhich Pokemon would you like to release back into the wild? (1-%d, or 0 to cancel): ", count - 1);
-                releaseChoice = Battle.getValidatedChoice(0, count - 1);
-                if (releaseChoice == 0) {
-                    System.out.println("Returning to main menu...");
-                    break;
-                }
-                
-                String releasedPokemonName = playerPokemons.get(releaseChoice - 1);
-                Pokemon releasedPokemon = Pokemon.getPokemonByName(releasedPokemonName);
-                boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(releasedPokemon);
+                    List<String> playerPokemons = FileManager.getPlayerPokemonFromTxt();
+                    int count = 1, releaseChoice;
+                    System.out.printf("%s's Collection:\n\n", player.getName());
+                    for (String i : playerPokemons) {
+                        System.out.printf("%d.\n%s\n", count, i);
+                        count++;
+                    }
+                    System.out.printf("\nWhich Pokemon would you like to release back into the wild? (1-%d, or 0 to cancel): ", count - 1);
+                    releaseChoice = Battle.getValidatedChoice(0, count - 1);
+                    if (releaseChoice == 0) {
+                        System.out.println("Returning to main menu...");
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                        break;
+                    }
 
-                if (removed) {
-                    player.removeFromCollection(releasedPokemonName);
-                    System.out.printf("%s has been released back into the wild.\n", releasedPokemonName);
-                }
-                break;
+                    String releasedPokemonName = playerPokemons.get(releaseChoice - 1);
+                    Pokemon releasedPokemon = Pokemon.getPokemonByName(releasedPokemonName);
+                    boolean removed = FileManager.removePokemonFromPlayerTxtAndCollection(releasedPokemon);
+
+                    if (removed) {
+                        player.removeFromCollection(releasedPokemonName);
+                        System.out.printf("%s has been released back into the wild.\n", releasedPokemonName);
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    break;
                 case 7:
                     System.out.println("Shutting down...");
                     on = false;
