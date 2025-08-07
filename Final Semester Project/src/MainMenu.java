@@ -11,9 +11,9 @@ public class MainMenu {
             choice = Player.getValidatedChoice(1, 7);
             switch(choice){
                 case 1:
-                    Pokemon playerPokemom = Battle.playerSelectPokemonFromCollection(player);
+                    Pokemon playerPokemon = Battle.playerSelectPokemonFromCollection(player);
                     Pokemon opponentPokemon = Pokemon.getRandomPokemon();
-                    Battle battle = new Battle(opponentPokemon,playerPokemom);
+                    Battle battle = new Battle(opponentPokemon,playerPokemon);
                     try {
                         battle.startBattle(player);
                     } catch (Exception e) {
