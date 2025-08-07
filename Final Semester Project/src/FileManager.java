@@ -182,6 +182,11 @@ public class FileManager {
             Player.chooseStarter(player);
             System.out.println("You can now get started!");
             createPlayerDataFile(player);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             return player;
         } else{
             System.out.println("A saved player account has been found!\nWould you like to load the previous players account?\n(1 for YES, 2 for NO)");
@@ -211,9 +216,19 @@ public class FileManager {
                 }
                 Player player = new Player(playerName);
                 System.out.println("Now you must pick your starter Pokemon...");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
                 Player.chooseStarter(player);
                 System.out.println("You can now get started!");
                 createPlayerDataFile(player);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
                 return player;
             }
         }
