@@ -237,20 +237,21 @@ public class Battle {
 	}
 
 	private int calculateZMoveDamage(ZMoves move, Pokemon attacker, Pokemon defender) {
-		double effectiveness = Pokemon.getTypeEffectiveness(attacker, defender);
+    double effectiveness = Pokemon.getTypeEffectiveness(attacker, defender);
+    int basePower = move.getBasePower();
+    double normalized = (basePower - 100) / (210.0 - 100); // between 0 and 1
+    double scaledDamage;
 
-		double baseDamage;
+    if (effectiveness > 1.0) {
+        scaledDamage = 45 + (normalized * 5); // [45–50]
+    } else if (effectiveness < 1.0) {
+        scaledDamage = 25 + (normalized * 5); // [25–30]
+    } else {
+        scaledDamage = 35 + (normalized * 5); // [35–40]
+    }
 
-		if (effectiveness > 1.0) {
-			baseDamage = 50;  
-		} else if (effectiveness < 1.0) {
-			baseDamage = 30;  
-		} else {
-			baseDamage = 40;  
-		}
-
-		return (int) baseDamage;
-	}
+    return Math.max(1, (int) scaledDamage);
+}
 
 	public static Pokemon playerSelectPokemonFromCollection(Player player) {
 		Pokemon playerPokemon;
