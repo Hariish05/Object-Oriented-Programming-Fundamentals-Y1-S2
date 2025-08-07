@@ -269,7 +269,7 @@ public class FileManager {
         boolean removed = false;
         String temp;
         if (!playerDataList.contains(pokemonName) || playerPokemonIndex ==1) {
-            System.out.println("You dont have that pokemon in your collection!\n Or you only have 1 pokemon in your collection!");
+            System.out.println("Release failed! Either you do not have that Pokemon in your collection or it is your only Pokemon in your collection!");
             return removed;
         } else{
             playerDataList.remove(pokemonName);
