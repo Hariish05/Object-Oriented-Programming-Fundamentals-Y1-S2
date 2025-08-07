@@ -117,7 +117,8 @@ public class Battle {
 				// Show effectiveness message
 				double effectiveness = Pokemon.getTypeEffectiveness(playerPokemon, opponentPokemon);
 				String effectivenessMsg = getEffectivenessText(effectiveness);
-
+				playerPokemon.useTypeMove();
+				Thread.sleep(1000);
 				System.out.printf("%s used Z-Move %s! It hit and dealt %d damage!%s (%d/%d) \n",
 				playerPokemon.getNickname(), playerPokemon.getZMove().getName(), damage, effectivenessMsg, opponentPokemon.getHp(), opponentPokemon.getMaxHp());
 				Thread.sleep(1000);
@@ -152,6 +153,8 @@ public class Battle {
 		playerPokemon.reduceHp(damage);
 		double effectiveness = Pokemon.getTypeEffectiveness(opponentPokemon, playerPokemon);
 		String effectivenessMsg = getEffectivenessText(effectiveness);
+		opponentPokemon.useTypeMove();
+		Thread.sleep(1000);
 		System.out.printf("%s used its Z-Move %s! It dealt %d damage to %s!%s (%d/%d)\n",
 			opponentPokemon.getNickname(), opponentPokemon.getZMove().getName(), damage, playerPokemon.getNickname(), effectivenessMsg, playerPokemon.getHp(), playerPokemon.getMaxHp());
 

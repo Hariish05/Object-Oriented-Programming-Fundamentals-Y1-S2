@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Grass extends Pokemon{
+    
     //Grass Pokemon Constructor
     public Grass(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
         super(nickname, maxHp, atk, def, speed, species,ZMove);
@@ -18,9 +19,6 @@ public class Grass extends Pokemon{
     @Override
     public void useTypeMove(){
         System.out.printf("%s uses a Grass type move!\n", getNickname());
-    }
-    public void grassBonus(){
-        System.out.printf("%s calls upon the power of Grass!\n",getNickname());
     }
     @Override
     public String toString(){

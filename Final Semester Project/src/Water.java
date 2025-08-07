@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 public class Water extends Pokemon{
+    
     // Water pokemon constructor 
     public Water(String nickname, int atk, int def, int speed, String species,int maxHp, ZMoves ZMove){
         super(nickname, maxHp, atk, def, speed, species,ZMove);
@@ -18,9 +19,6 @@ public class Water extends Pokemon{
     @Override
     public void useTypeMove(){
         System.out.printf("%s uses a Water type move!\n", getNickname());
-    }
-    public void waterBonus(){
-        System.out.printf("%s calls upon the power of Water!\n",getNickname());
     }
     @Override
     public String toString(){
