@@ -12,9 +12,9 @@ class Pokeball {
 	// Pokeball object creation
 
 	public static final Pokeball POKEBALL = new Pokeball("Pokeball",0.4);
-	public static final Pokeball GREATBALL = new Pokeball("Great ball",0.6); 
+	public static final Pokeball GREATBALL = new Pokeball("Great Ball",0.6); 
 	public static final Pokeball ULTRABALL = new Pokeball("Ultra Ball",0.8);
-	public static final Pokeball MASTERBALL = new Pokeball("Master ball",1.0); 
+	public static final Pokeball MASTERBALL = new Pokeball("Master Ball",1.0); 
 
 	public String getBallName() {
 		return ballName;
@@ -50,9 +50,19 @@ class Pokeball {
 			System.out.printf("%s has been added to your collection!\n",pokemon.getSpecies());
 			FileManager.removePokemonFromTxt(pokemon);
 			FileManager.addPokemonToPlayerTxt(pokemon);
+			try {
+	                  Thread.sleep(2000);
+	            	} catch (InterruptedException e) {
+	                  Thread.currentThread().interrupt();
+	            	}
+			
 		} else {
 			System.out.printf("\nYour attempt to catch %s has failed!\n", pokemon.getSpecies());
-
+			try {
+	                  Thread.sleep(2000);
+	            	} catch (InterruptedException e) {
+	                  Thread.currentThread().interrupt();
+	            	}
 		}
 	}
 
