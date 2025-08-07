@@ -122,8 +122,7 @@ public class ZMoves {
         return basePower;
     }
 
-    @Override
     public String toString(){
-        return String.format("Z-Move name: %s\n",getName());
+        return String.format("Z-Move name: %s\nZ-Move Power: %d",getName(),getBasePower());
     }
 }

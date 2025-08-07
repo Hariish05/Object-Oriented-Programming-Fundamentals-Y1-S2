@@ -4,7 +4,6 @@ import java.util.Random;
 
 abstract class Pokemon {
 	protected String nickname;
-	protected boolean defeat;
 	protected int level;
 	protected int hp;
 	protected int maxHp;
@@ -23,14 +22,10 @@ abstract class Pokemon {
 		this.species = species;
 		this.hp = this.maxHp;
 		this.level = 1;
-		this.defeat = false;
 		this.ZMove = ZMove;
 	}
 	public String getNickname() {
 		return nickname;
-	}
-	public boolean isDefeat() {
-		return defeat;
 	}
 	public int getLevel() {
 		return level;
