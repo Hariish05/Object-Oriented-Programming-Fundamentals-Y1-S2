@@ -196,66 +196,12 @@ public class Player {
 			player.setCollection(finalPokemon);
 			FileManager.removePokemonFromTxt(finalPokemon);
 			System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
-	}
-
-/* 
-	// NEEDS IF STATEMENT TO PREVENT EXISTING PLAYER FROM SELECTING A STARTER EVERYTIME
-	public static void chooseStarter(Player player) {
-		ArrayList<Pokemon> selectedPokemon = Pokemon.getThreeRandomPokemon();
-		List<String> names = new ArrayList<>();
-		int count = 1;
-		int choice, tempChoice;
-
-		Scanner input = new Scanner(System.in);
-		for (Pokemon i : selectedPokemon) {
-			String name = i.getSpecies();
-			int atk = i.getAtk();
-			int def = i.getDef();
-			int speed = i.getSpeed();
-			ZMoves ZMove = i.getZMove();
-			Class<?> temp = i.getClass();
-			String pokemonType;
-
-			if (temp == Water.class) {
-				pokemonType = "Water";
-			} else if (temp == Electric.class) {
-				pokemonType = "Electric";
-			} else if (temp == Grass.class) {
-				pokemonType = "Grass";
-			} else if (temp == Fire.class) {
-				pokemonType = "Fire";
-			} else {
-				pokemonType = "Normal";
-			}
-
-			System.out.printf("\n%d.\nType: %s\nName: %s\nAttack: %d\nDefense: %d\nSpeed: %d\n%s", count, pokemonType,
-					name, atk, def, speed, ZMove.toString());
-			count++;
-		}
-		System.out.println("Which pokemon would you like to take as a starter? (Enter 1, 2 or 3): ");
-		while (true) {
 			try {
-				tempChoice = input.nextInt();
-				if (tempChoice <= 0 || tempChoice > 3) {
-					System.out.println("Invalid number. Try again.");
-				} else {
-					choice = tempChoice;
-					break;
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Enter a number.");
-				input.next();
-			}
-		}
-
-		// '-1' to match index
-		Pokemon finalPokemon = selectedPokemon.get(choice - 1);
-		player.setCollection(finalPokemon);
-		FileManager.removePokemonFromTxt(finalPokemon);
-		System.out.println(finalPokemon.getSpecies() + " has been added to your collection!");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 	}
-*/
-
 
 	public static void catchWildPokemon(Player player) {
 		String name,ZMoveName;
@@ -266,6 +212,11 @@ public class Player {
 
 		if (player.getCollection().size() >=3){
 			System.out.println("You do not have space to store anymore Pokemons!");
+			try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 		}
 		else{
 			Scanner input = new Scanner(System.in);
@@ -358,9 +309,7 @@ public class Player {
 			}
 			boolean caught = Pokeball.attemptCatch(randomPokeball);
 			Pokeball.placeCaughtPokemonInCollection(caught, pokemonToAttemptCatch, player);
-
-
-	}
+		}
 	}
 
 	@Override
