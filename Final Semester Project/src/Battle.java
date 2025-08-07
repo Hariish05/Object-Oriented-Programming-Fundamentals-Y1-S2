@@ -152,7 +152,7 @@ public class Battle {
 	int damage = calculateDamage(playerPokemon.getAtk(), opponentPokemon.getDef(), effectiveness);
 	opponentPokemon.reduceHp(damage);
 	String effectivenessMsg = getEffectivenessText(effectiveness);
-	System.out.println("You attacked " + opponentPokemon.getNickname() + " for " + damage + " damage!" + effectivenessMsg + " (" + opponentPokemon.getHp() + "/" + opponentPokemon.getMaxHp() + ")");
+	System.out.printf("%s attacked %s for %d damage!%s (%d/%d)\n", playerPokemon.getNickname(), opponentPokemon.getNickname(), damage, effectivenessMsg, opponentPokemon.getHp(), opponentPokemon.getMaxHp());
 	Thread.sleep(1000);
 	score += calculateScore(damage,false,0);
 		return score;
