@@ -168,7 +168,7 @@ public class FileManager {
         String playerName;
         int choice;
         if (playerDataList ==null || playerDataList.isEmpty()){
-            System.out.println("Since you are a first-time user, you must create an account.\nEnter your player name: ");
+            System.out.println("Welcome to our program! Since you are a first-time user, you must create an account.\nEnter your player name: ");
             while (true) { 
                 try {
                     playerName = input.nextLine();
@@ -179,6 +179,11 @@ public class FileManager {
             }
             Player player = new Player(playerName);
             System.out.println("Account created successfully!\nNow you must pick a starter Pokemon...");
+            try {
+	            Thread.sleep(2000);
+	        } catch (InterruptedException e) {
+	            Thread.currentThread().interrupt();
+	        }
             Player.chooseStarter(player);
             System.out.println("You can now get started!");
             createPlayerDataFile(player);
