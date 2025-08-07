@@ -9,7 +9,7 @@ public class Electric extends Pokemon{
     }
     // Electric pokemon object creation (VALUES NOT FINAL)
     public static Pokemon elekid = new Electric("Elekid",63,37,95,"Elekid",45,ZMoves.GIGAVOLT_HAVOC_ELEKID);
-    public static Pokemon pikachu = new Electric("Pikachu",55,40,90,"Pikachu",35,ZMoves.CATASTROPIKA);
+    public static Pokemon pikachu = new Electric("Pikachu",71,40,93,"Pikachu",40,ZMoves.CATASTROPIKA);
     public static Pokemon shinx = new Electric("Shinx",65,34,45,"Shinx",45,ZMoves.GIGAVOLT_HAVOC_SHINX);
 
     public static List<Pokemon> getAllElectricPokemon(){
