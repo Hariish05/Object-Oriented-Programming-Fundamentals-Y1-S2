@@ -266,7 +266,12 @@ public class Battle {
 				if (i + j < total)
 	        	System.out.printf("%-40s", "ZMove Name: " + playerPokemons.get(i+j).getZMove().getName());      	
 	        }
-	        System.out.println("\n");
+	        System.out.println();
+
+			for(int j = 0; j< totalRows; j++) {
+     		   	System.out.printf("%-40s", "ZMove Power: " + playerPokemons.get(i).getZMove().getBasePower());      	
+     	    }
+     	    System.out.println("\n");
 	    }
 
 		System.out.printf("\nWhich Pokemon would you like to fight with? (1-%d): ",total);

@@ -81,6 +81,11 @@ public class Player {
 	        for(int i = 0; i< totalRows; i++) {
      		   	System.out.printf("%-40s", "ZMove Name: " + selectedPokemon.get(i).getZMove().getName());      	
      	    }
+			System.out.println();
+
+			for(int i = 0; i< totalRows; i++) {
+     		   	System.out.printf("%-40s", "ZMove Power: " + selectedPokemon.get(i).getZMove().getBasePower());      	
+     	    }
      	    System.out.println("\n");      
 
 			System.out.println("Which pokemon would you like to take as a starter? (Enter 1, 2 or 3): ");
@@ -181,7 +186,12 @@ public class Player {
 	        for(int i = 0; i< totalRows; i++) {
      		   	System.out.printf("%-40s", "ZMove Name: " + wildPokemonList.get(i).getZMove().getName());      	
      	   }
-     	   System.out.println("\n");      
+     	   System.out.println();
+
+		   for(int i = 0; i< totalRows; i++) {
+     		   	System.out.printf("%-40s", "ZMove Power: " + wildPokemonList.get(i).getZMove().getBasePower());      	
+     	    }
+     	    System.out.println("\n");      
 	    
 			System.out.println("Which pokemon do you want to catch? (Enter 1, 2 or 3): ");
 			while (true) {
